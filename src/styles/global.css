@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@theme {
+  /* Aquí definimos tus colores personalizados */
+  --color-accent: #11B6EB;
+  --color-black: #050505;
+  
+  /* Sobrescribimos o extendemos colores base si es necesario */
+  --color-zinc-900: #101010;
+  --color-zinc-800: #1f1f1f;
+
+  /* Fuentes */
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  /* Animaciones personalizadas */
+  --animate-fade-in: fadeIn 1s ease-out forwards;
+
+  @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* Estilos globales */
+html, body {
+  @apply bg-black text-white;
+  scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}

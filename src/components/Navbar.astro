@@ -1,0 +1,49 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+// CORRECCIÓN: Si currentLocale es undefined, usamos 'es' por defecto.
+const currentLocale = Astro.currentLocale ?? 'es';
+
+const isEs = currentLocale === 'es';
+
+const links = {
+  writer: isEs ? 'Escritor' : 'Writer',
+  artist: isEs ? 'Artista' : 'Artist',
+  contact: isEs ? 'Contacto' : 'Contact',
+};
+
+const routes = {
+  writer: getRelativeLocaleUrl(currentLocale, isEs ? 'escritor' : 'writer'),
+  artist: getRelativeLocaleUrl(currentLocale, isEs ? 'artista' : 'artist'),
+  langSwitch: getRelativeLocaleUrl(isEs ? 'en' : 'es', ''),
+};
+---
+
+<header class="fixed w-full top-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
+  <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+    <a href={getRelativeLocaleUrl(currentLocale, '/')} class="text-2xl font-bold tracking-tighter text-white">
+      FJ <span class="font-light text-accent">CUEVA</span>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-8">
+      <a href={routes.writer} class="text-sm uppercase tracking-widest text-gray-400 hover:text-accent transition-colors">
+        {links.writer}
+      </a>
+      <a href={routes.artist} class="text-sm uppercase tracking-widest text-gray-400 hover:text-accent transition-colors">
+        {links.artist}
+      </a>
+      <a href="#contact" class="text-sm uppercase tracking-widest text-gray-400 hover:text-accent transition-colors">
+        {links.contact}
+      </a>
+      <div class="h-4 w-px bg-white/20 mx-2"></div>
+      
+      <a href={routes.langSwitch} class="text-xs font-bold text-white border border-white/20 px-3 py-1 rounded hover:bg-white hover:text-black transition-all">
+        {isEs ? 'EN' : 'ES'}
+      </a>
+    </nav>
+    
+    <a href={routes.langSwitch} class="md:hidden text-xs font-bold text-white border border-white/20 px-3 py-1 rounded">
+        {isEs ? 'EN' : 'ES'}
+    </a>
+  </div>
+</header>
