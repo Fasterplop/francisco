@@ -1,49 +1,128 @@
 ---
-import { getRelativeLocaleUrl } from 'astro:i18n';
+// src/components/Navbar.astro
 
-// CORRECCIÓN: Si currentLocale es undefined, usamos 'es' por defecto.
-const currentLocale = Astro.currentLocale ?? 'es';
+// 1. Tipado
+interface MenuItem {
+  name: string;
+  href: string;
+}
 
-const isEs = currentLocale === 'es';
+interface Translation {
+  menu: MenuItem[];
+  contact: {
+    text: string;
+    message: string;
+  };
+  langLabel: string; // Etiqueta para el botón de cambio (EN o ES)
+}
 
-const links = {
-  writer: isEs ? 'Escritor' : 'Writer',
-  artist: isEs ? 'Artista' : 'Artist',
-  contact: isEs ? 'Contacto' : 'Contact',
+// 2. Configuración i18n
+const i18n: Record<string, Translation> = {
+  es: {
+    menu: [
+      { name: 'Inicio', href: '/' },
+      { name: 'Escritor', href: '/escritor' },
+      { name: 'Artista', href: '/artista' },
+    ],
+    contact: {
+      text: 'Contacto',
+      message: 'Hola, me interesa saber más sobre tu obra.'
+    },
+    langLabel: 'EN' // Si estás en ES, el botón dice EN
+  },
+  en: {
+    menu: [
+      { name: 'Home', href: '/en' },
+      { name: 'Writer', href: '/en/writer' },
+      { name: 'Artist', href: '/en/artist' },
+    ],
+    contact: {
+      text: 'Contact',
+      message: 'Hello, I am interested in knowing more about your work.'
+    },
+    langLabel: 'ES' // Si estás en EN, el botón dice ES
+  }
 };
 
-const routes = {
-  writer: getRelativeLocaleUrl(currentLocale, isEs ? 'escritor' : 'writer'),
-  artist: getRelativeLocaleUrl(currentLocale, isEs ? 'artista' : 'artist'),
-  langSwitch: getRelativeLocaleUrl(isEs ? 'en' : 'es', ''),
+// 3. Datos actuales
+const currentLocale = Astro.currentLocale || 'es';
+const t = i18n[currentLocale] || i18n['es'];
+
+// 4. Lógica de Ruteo para el cambio de idioma
+// Mapa exacto de tus rutas para que no te mande siempre al inicio
+const routeMap: Record<string, string> = {
+  // De Español a Inglés
+  '/': '/en',
+  '/escritor': '/en/writer',
+  '/artista': '/en/artist',
+  // De Inglés a Español
+  '/en': '/',
+  '/en/': '/', // Por si acaso
+  '/en/writer': '/escritor',
+  '/en/artist': '/artista',
 };
+
+// Normalizamos la ruta actual (quitamos slash final si existe para comparar bien)
+const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+// Buscamos la ruta traducida. Si no existe, mandamos al home del otro idioma por defecto.
+const targetLangHome = currentLocale === 'es' ? '/en' : '/';
+const translatedPath = routeMap[currentPath] || targetLangHome;
+
+// 5. Link de WhatsApp
+const phoneNumber = "17325549119";
+const encodedMessage = encodeURIComponent(t.contact.message);
+const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 ---
 
-<header class="fixed w-full top-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
-  <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-    <a href={getRelativeLocaleUrl(currentLocale, '/')} class="text-2xl font-bold tracking-tighter text-white">
-      FJ <span class="font-light text-accent">CUEVA</span>
-    </a>
+<header class="fixed top-0 w-full z-50 transition-all duration-300 bg-black/50 backdrop-blur-md border-b border-white/5">
+  
+  <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-center relative">
 
-    <nav class="hidden md:flex items-center gap-8">
-      <a href={routes.writer} class="text-sm uppercase tracking-widest text-gray-400 hover:text-accent transition-colors">
-        {links.writer}
-      </a>
-      <a href={routes.artist} class="text-sm uppercase tracking-widest text-gray-400 hover:text-accent transition-colors">
-        {links.artist}
-      </a>
-      <a href="#contact" class="text-sm uppercase tracking-widest text-gray-400 hover:text-accent transition-colors">
-        {links.contact}
-      </a>
-      <div class="h-4 w-px bg-white/20 mx-2"></div>
-      
-      <a href={routes.langSwitch} class="text-xs font-bold text-white border border-white/20 px-3 py-1 rounded hover:bg-white hover:text-black transition-all">
-        {isEs ? 'EN' : 'ES'}
-      </a>
+    <nav>
+      <ul class="flex items-center gap-8 md:gap-10 list-none m-0 p-0">
+        
+        {/* Enlaces del Menú */}
+        {t.menu.map((item) => (
+          <li>
+            <a 
+              href={item.href}
+              class="text-xs md:text-sm font-medium uppercase tracking-[0.2em] text-gray-400 hover:text-white transition-colors duration-300"
+            >
+              {item.name}
+            </a>
+          </li>
+        ))}
+
+         {/* Botón de Contacto (Sin Icono) */}
+        <li>
+          <a 
+            href={whatsappLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-accent hover:text-white transition-colors duration-300"
+          >
+            {t.contact.text}
+          </a>
+        </li>
+
+        {/* Separador Vertical Sutil */}
+        <li class="h-4 w-px bg-white/20"></li>
+
+        {/* Botón de Idioma (Solo Texto) */}
+        <li>
+          <a 
+            href={translatedPath}
+            class="text-xs md:text-sm font-bold text-white hover:text-accent transition-colors duration-300 uppercase tracking-widest"
+            aria-label="Change Language"
+          >
+            {t.langLabel}
+          </a>
+        </li>
+
+       
+
+      </ul>
     </nav>
-    
-    <a href={routes.langSwitch} class="md:hidden text-xs font-bold text-white border border-white/20 px-3 py-1 rounded">
-        {isEs ? 'EN' : 'ES'}
-    </a>
+
   </div>
 </header>

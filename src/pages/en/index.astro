@@ -1,116 +1,191 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import { Image } from 'astro:assets';
-import { Instagram, Facebook, Youtube } from 'lucide-react';
+// src/pages/en/index.astro
 
-// IMPORTACIÓN DE TUS ASSETS ESPECÍFICOS
+// NOTA: Se usan '../..' porque estamos un nivel más adentro (/en/)
+import Layout from '../../layouts/Layout.astro';
+import { Image, getImage } from 'astro:assets';
+import { FaInstagram, FaFacebook, FaYoutube } from 'react-icons/fa6';
+
+// IMÁGENES
 import imgGuerra from '../../assets/guerra2.jpg';
 import imgMarco from '../../assets/marco.jpg';
 import imgWar from '../../assets/war.jpg';
-import imgArtist from '../../assets/woman4.jpg'; // Usamos woman4 como pediste
+import imgArtist from '../../assets/woman4.jpg';
+import imgProfile from '../../assets/francisco.webp';
 
+// COMPONENTE NUEVO
+import BookSlider from '../../components/BookSlider';
+
+// OPTIMIZACIÓN
+const optimizedGuerra = await getImage({src: imgGuerra, format: 'webp', width: 600});
+const optimizedMarco = await getImage({src: imgMarco, format: 'webp', width: 600});
+const optimizedWar = await getImage({src: imgWar, format: 'webp', width: 600});
+
+// DATOS (Traducción de subtítulos y enlaces si es necesario)
+const booksData = [
+  {
+    title: "Guerra de Ángeles",
+    subtitle: "Adam, the first man", // Traducido
+    img: optimizedGuerra.src,
+    link: "https://www.amazon.com/Guerra-Angeles-primer-hombre-Spanish-ebook/dp/B00IK6OH4G"
+  },
+  {
+    title: "Manual del buen estoico",
+    subtitle: "Ancient Wisdom", // Traducido
+    img: optimizedMarco.src,
+    link: "https://www.amazon.com/Manual-del-buen-estoico-Aurelio/dp/B0FMS9QLCW"
+  },
+  {
+    title: "War of Angels",
+    subtitle: "War of Angels", // Traducido
+    img: optimizedWar.src,
+    link: "https://www.amazon.com/War-Angels-First-Celestial-Chronicles-ebook/dp/B0FX3KTSKM"
+  },
+ 
+];
 ---
 
-<Layout title="FJ Cueva | Escritor • Artista • Arquitecto">
+<Layout title="FJ Cueva | Writer • Artist • Architect">
     
-    <section class="h-screen flex flex-col justify-center items-center text-center px-4 relative overflow-hidden">
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/5 rounded-full blur-[120px] pointer-events-none"></div>
+    <section class="h-screen flex flex-col justify-center items-center text-center px-4 relative overflow-hidden bg-black">
+        <div class="absolute inset-0 z-0 opacity-[0.15] pointer-events-none mix-blend-overlay" style="background-image: url('https://grainy-gradients.vercel.app/noise.svg');"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/20 rounded-full blur-[120px] pointer-events-none animate-pulse-slow"></div>
 
-        <div class="relative z-10 space-y-6">
-            <h1 class="text-6xl md:text-9xl font-bold tracking-tighter text-white">
-                FJ CUEVA
+        <div class="relative z-10 flex flex-col items-center">
+            <h1 class="flex flex-col md:flex-row items-center justify-center leading-none tracking-tighter mb-6 select-none">
+                <span class="text-[8rem] md:text-[12rem] font-bold text-accent relative z-10">FJ</span>
+                <span class="text-[8rem] md:text-[12rem] font-bold text-stroke md:-ml-6 z-0 opacity-80">CUEVA</span>
             </h1>
-            <h2 class="text-lg md:text-xl font-light text-accent tracking-[0.3em] uppercase">
-                Escritor • Artista • Arquitecto
-            </h2>
+
+            <div class="flex flex-col items-center gap-4 animate-fade-in-up">
+                <div class="h-16 w-px bg-gradient-to-b from-white to-transparent opacity-50"></div>
+                <h2 class="text-sm md:text-base font-light text-gray-400 tracking-[0.5em] uppercase text-center">
+                    Writer <span class="text-accent mx-2">•</span> Artist <span class="text-accent mx-2">•</span> Architect
+                </h2>
+            </div>
             
-            <div class="flex justify-center gap-8 pt-4">
-                <a href="#" class="text-gray-500 hover:text-white transition-transform hover:scale-110"><Instagram size={24} /></a>
-                <a href="#" class="text-gray-500 hover:text-white transition-transform hover:scale-110"><Facebook size={24} /></a>
-                <a href="#" class="text-gray-500 hover:text-white transition-transform hover:scale-110"><Youtube size={24} /></a>
+            <div class="flex gap-8 mt-12 animate-fade-in-up delay-200">
+                <a href="#" class="group relative p-2"><FaInstagram className="text-gray-400 group-hover:text-white transition-colors" size={24} /></a>
+                <a href="#" class="group relative p-2"><FaFacebook className="text-gray-400 group-hover:text-white transition-colors" size={24} /></a>
+                <a href="#" class="group relative p-2"><FaYoutube className="text-gray-400 group-hover:text-white transition-colors" size={24} /></a>
             </div>
         </div>
     </section>
 
-    <section class="py-24 bg-zinc-900/30 border-y border-white/5">
-        <div class="max-w-7xl mx-auto px-6">
-            <h3 class="text-3xl md:text-4xl font-bold mb-16 text-center tracking-tight">Obras Recientes</h3>
+    <style>
+        .text-stroke { -webkit-text-stroke: 2px white; color: transparent; }
+        @media (max-width: 768px) { .text-stroke { -webkit-text-stroke: 1px white; } }
+        @keyframes pulse-slow { 0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); } 50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); } }
+        .animate-pulse-slow { animation: pulse-slow 8s infinite ease-in-out; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in-up { animation: fadeInUp 1s ease-out forwards; }
+        .delay-200 { animation-delay: 0.2s; opacity: 0; }
+    </style>
+
+    <section class="py-24 bg-zinc-900 border-y border-white/5 overflow-hidden">
+        <div class="max-w-full mx-auto px-4">
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 items-start">
-                
-                <a href="https://amazon.com" target="_blank" class="group block">
-                    <div class="aspect-[2/3] overflow-hidden rounded shadow-2xl relative mb-6">
-                        <Image src={imgGuerra} alt="Guerra de Ángeles" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                        <div class="absolute inset-0 bg-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    </div>
-                    <h4 class="text-xl font-bold text-white group-hover:text-accent transition-colors">Guerra de Ángeles</h4>
-                    <p class="text-gray-500 text-sm mt-1">Adán, el primer hombre</p>
-                </a>
-
-                <a href="https://amazon.com" target="_blank" class="group block md:mt-12"> <div class="aspect-[2/3] overflow-hidden rounded shadow-2xl relative mb-6">
-                        <Image src={imgMarco} alt="Manual del buen estoico" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                         <div class="absolute inset-0 bg-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    </div>
-                    <h4 class="text-xl font-bold text-white group-hover:text-accent transition-colors">Manual del buen estoico</h4>
-                    <p class="text-gray-500 text-sm mt-1">Sabiduría antigua para tiempos modernos</p>
-                </a>
-
-                <a href="https://amazon.com" target="_blank" class="group block">
-                    <div class="aspect-[2/3] overflow-hidden rounded shadow-2xl relative mb-6">
-                        <Image src={imgWar} alt="Colección Distópica" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                         <div class="absolute inset-0 bg-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    </div>
-                    <h4 class="text-xl font-bold text-white group-hover:text-accent transition-colors">Crónicas del Caos</h4>
-                    <p class="text-gray-500 text-sm mt-1">Colección de cuentos distópicos</p>
-                </a>
-
+            <div class="text-center mb-4">
+                <h3 class="text-xs font-bold uppercase tracking-[0.3em] text-accent mb-4">Featured Works</h3>
+                <h2 class="text-3xl md:text-5xl font-bold text-white tracking-tight font-serif">Narrative Universes</h2>
             </div>
+            
+            <div class="animate-fade-in-up">
+                <BookSlider books={booksData} actionText="View Details" client:visible />
+            </div>
+
         </div>
     </section>
 
-    <section class="py-32 relative overflow-hidden">
+    <section class="py-32 relative overflow-hidden bg-zinc-50 border-t border-zinc-200">
+        
+        <div class="absolute left-1/2 top-0 bottom-0 w-px bg-zinc-200 hidden md:block"></div>
+
         <div class="max-w-7xl mx-auto px-6 relative z-10">
-            <div class="flex flex-col md:flex-row items-center gap-16">
-                <div class="w-full md:w-1/2 space-y-8">
-                    <h3 class="text-5xl md:text-7xl font-bold tracking-tighter text-white">
-                        ARTE <br/> <span class="text-accent">VISCERAL</span>
+            <div class="flex flex-col md:flex-row items-center gap-12 md:gap-24">
+                
+                <div class="w-full md:w-1/2 space-y-8 text-left md:text-right relative">
+                    
+                    <h3 class="text-5xl md:text-7xl font-bold tracking-tighter text-zinc-900 leading-tight">
+                        SKIN <br/> 
+                        <span class="font-serif italic font-light text-accent">CANVASES</span>
                     </h3>
-                    <p class="text-gray-400 text-lg leading-relaxed max-w-md">
-                        Explorando la naturaleza efímera del ser a través del <span class="text-white">body painting</span>, el óleo y la acuarela. Cada trazo es un respiro, cada color un pulso.
-                    </p>
-                    <a href="/artista" class="inline-flex items-center text-accent uppercase tracking-widest text-sm font-bold border-b border-accent pb-1 hover:text-white hover:border-white transition-colors">
-                        Explorar Galería
+                    
+                    <div class="flex flex-col md:items-end gap-6">
+                        <div class="h-1 w-12 bg-accent rounded-full"></div>
+                        
+                        <p class="text-zinc-600 text-lg leading-relaxed max-w-md font-light">
+                            Where the architecture of the body meets pigment. An exploration of the <span class="text-zinc-900 font-medium">ephemeral</span> through body painting, oil, and watercolor.
+                        </p>
+                    </div>
+
+                    <a href="/en/artist" class="group inline-flex items-center gap-4 text-zinc-900 text-sm tracking-[0.2em] uppercase mt-4 hover:text-accent transition-colors">
+                        <span class="border-b border-zinc-300 pb-1 group-hover:border-accent transition-colors">Enter Gallery</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 transition-transform group-hover:translate-x-2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                     </a>
                 </div>
 
                 <div class="w-full md:w-1/2">
-                    <div class="relative">
-                        <div class="absolute inset-0 bg-accent blur-[100px] opacity-20"></div>
-                        <Image src={imgArtist} alt="FJ Cueva Art" class="relative w-full h-auto rounded-sm shadow-2xl grayscale hover:grayscale-0 transition-all duration-1000" />
+                    <div class="relative group">
+                        <div class="absolute inset-0 border border-zinc-300 translate-x-4 translate-y-4 rounded-sm transition-transform duration-500 group-hover:translate-x-2 group-hover:translate-y-2"></div>
+                        
+                        <div class="relative overflow-hidden rounded-sm shadow-2xl">
+                             <Image 
+                                src={imgArtist} 
+                                alt="FJ Cueva Art" 
+                                class="w-full h-auto object-cover transform transition-transform duration-1000 group-hover:scale-105" 
+                            />
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <section class="py-24 bg-zinc-900 border-t border-white/5">
-        <div class="max-w-3xl mx-auto px-6 text-center">
-            <h3 class="text-xs font-bold mb-8 uppercase tracking-[0.3em] text-accent">Biografía</h3>
+    <section class="py-24 bg-zinc-900 border-t border-white/5 relative overflow-hidden">
+        
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-accent/5 blur-[100px] rounded-full pointer-events-none"></div>
+
+        <div class="max-w-4xl mx-auto px-6 relative z-10 text-center">
             
-            <div class="prose prose-invert prose-lg mx-auto text-gray-400">
+            <h3 class="text-xs font-bold mb-12 uppercase tracking-[0.3em] text-accent">The Author</h3>
+
+            <div class="mb-10 flex justify-center">
+                <div class="relative group">
+                    <div class="absolute -inset-2 bg-gradient-to-tr from-accent/20 to-transparent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-md"></div>
+                    
+                    <Image 
+                        src={imgProfile} 
+                        alt="FJ Cueva" 
+                        class="w-32 h-32 md:w-40 md:h-40 object-cover rounded-full border-2 border-white/10 shadow-2xl relative z-10"
+                    />
+                </div>
+            </div>
+            
+            <div class="prose prose-invert prose-lg mx-auto text-gray-400 leading-relaxed">
                 <p>
-                    <strong class="text-white">FJ Cueva (Quito, 1977)</strong> es un creador multidisciplinario cuya obra nace en la intersección de la arquitectura, las artes plásticas y la literatura.
+                    <strong class="text-white text-xl block mb-4">FJ Cueva (Quito, 1977)</strong>
+                    Is a multidisciplinary creator whose work is born at the intersection of <span class="text-white">architecture</span>, <span class="text-white">visual arts</span>, and <span class="text-white">literature</span>.
                 </p>
                 <p>
-                   Radicado en Miami, Cueva traslada la precisión estructural del arquitecto y la sensibilidad visual del artista a una prosa que oscila entre lo poético y lo visceral. Como "filósofo moderno", su narrativa explora los mundos ocultos entre la realidad y la fantasía oscura.
+                   Based in Miami, Cueva translates the structural precision of the architect and the visual sensibility of the artist—specializing in oil, watercolor, and body paint—into prose that oscillates between the poetic and the visceral.
+                </p>
+                <p>
+                    As a "modern philosopher," his narrative explores the hidden worlds between reality and dark fantasy, addressing themes such as identity, memory, and social criticism with psychological depth.
+                </p>
+                <p class="italic text-gray-500 text-base mt-6">
+                    "His voice, influenced by science fiction and Latin American gothic, tirelessly seeks the essential truth of being."
                 </p>
             </div>
 
-            <div class="mt-12">
-                <a href="https://api.whatsapp.com/send?phone=17325549119&text=Hola,%20me%20interesa%20saber%20más%20sobre%20tu%20obra." 
+            <div class="mt-14">
+                <a href="https://api.whatsapp.com/send?phone=17325549119&text=Hello,%20I%20would%20like%20to%20get%20in%20touch%20with%20you." 
                    target="_blank"
-                   class="inline-block bg-white text-black px-8 py-4 rounded font-bold uppercase tracking-widest hover:bg-accent hover:text-white transition-colors duration-300">
-                    Contactar por WhatsApp
+                   rel="noopener noreferrer"
+                   class="inline-flex items-center gap-3 bg-white text-black px-8 py-4 rounded-full font-bold uppercase tracking-widest hover:bg-accent hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(37,99,235,0.4)] hover:-translate-y-1">
+                    <span>Contact via WhatsApp</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                 </a>
             </div>
         </div>

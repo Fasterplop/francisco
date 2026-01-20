@@ -34,3 +34,6 @@ h1, h2, h3, h4, h5, h6 {
 p {
   text-wrap: pretty;
 }
+
+.swiper-button-prev, .swiper-button-next { color: white !important; }
+.swiper-button-prev::after, .swiper-button-next::after { font-size: 2rem !important; font-weight: bold; }
