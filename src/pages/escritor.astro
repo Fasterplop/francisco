@@ -1,0 +1,158 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+
+// Importación de imágenes
+import imgGuerra from '../assets/guerra2.jpg';
+import imgMarco from '../assets/marco.jpg';
+import imgWar from '../assets/war.jpg';
+
+const books = [
+  {
+    id: 1,
+    title: "Guerra de Ángeles",
+    subtitle: "Adán, el primer hombre",
+    year: "2014",
+    synopsis: "En el principio no hubo paz. Una reinterpretación visceral del mito de la creación, donde la lealtad celestial se quiebra ante la imperfección humana. Una narrativa que fusiona lo teológico con la acción trepidante.",
+    quote: "La caída no fue un accidente, fue una elección.",
+    link: "https://www.amazon.com/Guerra-Angeles-primer-hombre-Spanish-ebook/dp/B00IK6OH4G",
+    image: imgGuerra,
+    tags: ["Fantasía Épica", "Mitología", "Acción"]
+  },
+  {
+    id: 2,
+    title: "Manual del buen estoico",
+    subtitle: "Sabiduría antigua para tiempos modernos",
+    year: "2023",
+    synopsis: "Una guía esencial que rescata el pensamiento de Marco Aurelio y lo adapta a la vorágine del siglo XXI. No es solo filosofía; es un manual de supervivencia mental para encontrar la calma en el caos.",
+    quote: "No tienes poder sobre los eventos externos, pero sí sobre tu mente.",
+    link: "https://www.amazon.com/Manual-del-buen-estoico-Aurelio/dp/B0FMS9QLCW",
+    image: imgMarco,
+    tags: ["Filosofía", "Crecimiento Personal", "Ensayo"]
+  },
+  {
+    id: 3,
+    title: "War of Angels",
+    subtitle: "The First Celestial Chronicles",
+    year: "2024",
+    synopsis: "La adaptación al inglés de la saga. Ángeles, demonios y los primeros humanos colisionan en una guerra que moldeará el destino del universo. Un relato épico de poder, traición y redención.",
+    quote: "History is written by the victors, even in Heaven.",
+    link: "https://www.amazon.com/War-Angels-First-Celestial-Chronicles-ebook/dp/B0FX3KTSKM",
+    image: imgWar,
+    tags: ["Fantasy", "English Edition", "Epic"]
+  }
+];
+---
+
+<Layout title="Escritor | FJ Cueva">
+  
+  <section class="relative min-h-[60vh] flex flex-col justify-center items-center px-6 pt-32 pb-12 overflow-hidden">
+    <div class="absolute inset-0 opacity-[0.15] pointer-events-none mix-blend-overlay" style="background-image: url('https://grainy-gradients.vercel.app/noise.svg');"></div>
+    
+    <div class="relative z-10 text-center space-y-6 max-w-4xl">
+      <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white mb-2">
+        Arquitectura <br/> 
+        <span class="text-stroke text-transparent italic font-light">Narrativa</span>
+      </h1>
+      
+      <div class="h-px w-24 bg-accent mx-auto my-8"></div>
+      
+      <p class="text-gray-400 text-lg md:text-xl font-light tracking-wide max-w-2xl mx-auto text-pretty">
+        Explorando los abismos de la condición humana a través de la fantasía oscura y la filosofía estoica.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-20 md:py-32 px-6 relative">
+    <div class="max-w-7xl mx-auto space-y-32 md:space-y-48">
+      
+      {books.map((book, index) => (
+        <article class={`flex flex-col md:flex-row items-center gap-12 md:gap-24 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''} group`}>
+          
+          <div class="w-full md:w-1/2 relative perspective-1000">
+            <div class="relative z-10 transform transition-transform duration-700 group-hover:scale-[1.02] group-hover:-translate-y-2">
+              <div class="absolute inset-0 bg-accent/20 blur-[40px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+              <Image 
+                src={book.image} 
+                alt={book.title} 
+                width={600}
+                class="w-full h-auto object-cover rounded shadow-2xl relative z-10 aspect-[2/3] max-w-sm mx-auto md:max-w-md"
+              />
+              <div class={`absolute top-4 bottom-4 w-full border border-white/20 -z-0 transition-all duration-500 ${index % 2 === 0 ? '-right-4 group-hover:-right-6' : '-left-4 group-hover:-left-6'}`}></div>
+            </div>
+          </div>
+
+          <div class="w-full md:w-1/2 space-y-8">
+            <div class="space-y-2">
+              <div class="flex items-center gap-4 text-xs font-bold tracking-[0.2em] uppercase text-accent">
+                <span>{book.year}</span>
+                <span class="w-8 h-px bg-white/20"></span>
+                <span class="text-gray-400">{book.tags[0]}</span>
+              </div>
+              
+              <h2 class="text-4xl md:text-5xl font-serif font-bold text-white leading-tight">
+                {book.title}
+              </h2>
+              <h3 class="text-xl font-light text-gray-400 italic">
+                {book.subtitle}
+              </h3>
+            </div>
+
+            <blockquote class="border-l-2 border-accent pl-6 py-1 text-lg md:text-xl text-gray-300 italic font-serif opacity-80">
+              "{book.quote}"
+            </blockquote>
+
+            <p class="text-gray-400 leading-relaxed text-pretty text-base md:text-lg">
+              {book.synopsis}
+            </p>
+
+            <div class="pt-4 flex flex-wrap gap-3">
+              {book.tags.map(tag => (
+                <span class="px-3 py-1 border border-white/10 rounded-full text-xs text-gray-500 uppercase tracking-wider">
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            <div class="pt-6">
+              <a 
+                href={book.link}
+                target="_blank"
+                rel="noopener noreferrer" 
+                class="inline-flex items-center gap-3 bg-white text-black px-8 py-3 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-accent hover:text-white transition-all duration-300 shadow-lg group-hover:shadow-accent/20"
+              >
+                Adquirir Libro
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </a>
+            </div>
+          </div>
+
+        </article>
+      ))}
+
+    </div>
+  </section>
+
+  <div class="h-24"></div>
+
+  <style>
+    .text-stroke {
+      -webkit-text-stroke: 1px white;
+      color: transparent;
+    }
+    
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    article {
+      view-timeline-name: --article;
+      view-timeline-axis: block;
+      animation-timeline: --article;
+      animation-name: fadeInUp;
+      animation-range: entry 10% cover 30%;
+      animation-fill-mode: both;
+    }
+  </style>
+
+</Layout>
