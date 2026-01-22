@@ -1,0 +1,62 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import MasonryGallery from '../../components/MasonryGallery';
+---
+
+<Layout 
+  title="Visual Artist | FJ Cueva"
+  description="Art Gallery: Body Painting, Oil, and Watercolor. Exploring the architecture of the body."
+>
+  
+  <section class="relative pt-40 pb-20 px-6 text-center overflow-hidden">
+    <div class="absolute inset-0 opacity-[0.10] pointer-events-none mix-blend-overlay" style="background-image: url('https://grainy-gradients.vercel.app/noise.svg');"></div>
+    
+    <div class="relative z-10 max-w-4xl mx-auto animate-fade-in-up">
+      <h1 class="font-serif text-6xl md:text-8xl font-bold text-white mb-6 leading-none">
+        Ephemeral <br/>
+        <span class="text-transparent text-stroke italic font-light">Matter</span>
+      </h1>
+      
+      <p class="text-gray-400 text-lg md:text-xl font-light tracking-wide max-w-2xl mx-auto mt-8">
+        The body as a canvas, oil as memory. A visual exploration of fragility and strength.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-12 bg-black min-h-screen border-t border-white/5">
+    <div class="max-w-[1600px] mx-auto px-4 md:px-8">
+      
+      {/* lang="en" activa los títulos en inglés definidos en el componente */}
+      <MasonryGallery client:load lang="en" />
+      
+    </div>
+  </section>
+
+  <section class="py-24 border-t border-white/10 bg-zinc-900/50">
+    <div class="max-w-3xl mx-auto text-center px-6">
+      <h3 class="text-3xl font-serif text-white mb-6">Looking for a unique piece?</h3>
+      <p class="text-gray-400 mb-10">I perform conceptual bodypaint sessions and commissioned artworks.</p>
+      <a 
+        href="https://wa.me/17325549119"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-block border border-accent text-accent hover:bg-accent hover:text-black px-8 py-3 rounded-full transition-all duration-300 uppercase tracking-widest text-sm font-bold"
+      >
+        Request Quote
+      </a>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .text-stroke {
+    -webkit-text-stroke: 1px white;
+    color: transparent;
+  }
+  @media (min-width: 768px) {
+    .text-stroke {
+      -webkit-text-stroke: 2px white;
+    }
+  }
+</style>
