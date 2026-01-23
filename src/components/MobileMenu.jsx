@@ -9,7 +9,7 @@ export default function MobileMenu({ links, routes, isEs }) {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
-      document.body.style.height = '100vh'; // Asegura que no haya "rebote" en iOS
+      document.body.style.height = '100vh'; 
     } else {
       document.body.style.overflow = '';
       document.body.style.height = '';
@@ -18,7 +18,7 @@ export default function MobileMenu({ links, routes, isEs }) {
 
   return (
     <div className="md:hidden">
-      {/* Botón Z-Index más alto que el overlay para ser siempre clickeable */}
+      {/* Botón Z-Index más alto */}
       <button 
         onClick={() => setIsOpen(!isOpen)} 
         className="relative z-[70] text-white p-2 focus:outline-none"
@@ -33,7 +33,7 @@ export default function MobileMenu({ links, routes, isEs }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }} // "Algo smooth" (300ms)
+            transition={{ duration: 0.3 }} 
             className="fixed inset-0 bg-black z-[60] flex flex-col justify-center items-center w-screen h-screen"
           >
             <ul className="flex flex-col items-center gap-10">
@@ -56,27 +56,44 @@ export default function MobileMenu({ links, routes, isEs }) {
                   {links.artist}
                 </a>
               </li>
-              
-              <li>
-                <a 
-                  href="#contact" 
-                  onClick={() => setIsOpen(false)}
-                  className="text-3xl font-bold uppercase tracking-widest text-gray-300 hover:text-white transition-colors"
-                >
-                  {links.contact}
-                </a>
-              </li>
+
+              {/* Contacto eliminado de aquí */}
 
               <div className="w-16 h-px bg-white/20 my-2"></div>
 
+              {/* Selector de Idioma EN | ES */}
               <li>
-                <a 
-                  href={routes.langSwitch} 
-                  className="text-lg font-bold text-accent border border-accent px-8 py-3 rounded-full uppercase tracking-widest hover:bg-accent hover:text-white transition-colors"
-                >
-                  {isEs ? 'English' : 'Español'}
-                </a>
+                <div className="flex items-center gap-4 text-3xl font-bold uppercase tracking-widest">
+                  
+                  {/* EN Logic */}
+                  {!isEs ? (
+                    <span className="text-accent cursor-default">EN</span>
+                  ) : (
+                    <a 
+                      href={routes.langSwitch} 
+                      className="text-white/50 hover:text-white transition-colors"
+                    >
+                      EN
+                    </a>
+                  )}
+
+                  <span className="text-white/30">|</span>
+
+                  {/* ES Logic */}
+                  {isEs ? (
+                    <span className="text-accent cursor-default">ES</span>
+                  ) : (
+                    <a 
+                      href={routes.langSwitch} 
+                      className="text-white/50 hover:text-white transition-colors"
+                    >
+                      ES
+                    </a>
+                  )}
+                  
+                </div>
               </li>
+
             </ul>
           </motion.div>
         )}

@@ -9,11 +9,8 @@ interface MenuItem {
 
 interface Translation {
   menu: MenuItem[];
-  contact: {
-    text: string;
-    message: string;
-  };
-  langLabel: string; // Etiqueta para el botón de cambio (EN o ES)
+  // Contacto eliminado
+  langLabel: string; 
 }
 
 // 2. Configuración i18n
@@ -24,11 +21,8 @@ const i18n: Record<string, Translation> = {
       { name: 'Escritor', href: '/escritor' },
       { name: 'Artista', href: '/artista' },
     ],
-    contact: {
-      text: 'Contacto',
-      message: 'Hola, me interesa saber más sobre tu obra.'
-    },
-    langLabel: 'EN' // Si estás en ES, el botón dice EN
+    // Contacto eliminado
+    langLabel: 'EN' 
   },
   en: {
     menu: [
@@ -36,11 +30,8 @@ const i18n: Record<string, Translation> = {
       { name: 'Writer', href: '/en/writer' },
       { name: 'Artist', href: '/en/artist' },
     ],
-    contact: {
-      text: 'Contact',
-      message: 'Hello, I am interested in knowing more about your work.'
-    },
-    langLabel: 'ES' // Si estás en EN, el botón dice ES
+    // Contacto eliminado
+    langLabel: 'ES'
   }
 };
 
@@ -49,7 +40,6 @@ const currentLocale = Astro.currentLocale || 'es';
 const t = i18n[currentLocale] || i18n['es'];
 
 // 4. Lógica de Ruteo para el cambio de idioma
-// Mapa exacto de tus rutas para que no te mande siempre al inicio
 const routeMap: Record<string, string> = {
   // De Español a Inglés
   '/': '/en',
@@ -57,21 +47,17 @@ const routeMap: Record<string, string> = {
   '/artista': '/en/artist',
   // De Inglés a Español
   '/en': '/',
-  '/en/': '/', // Por si acaso
+  '/en/': '/', 
   '/en/writer': '/escritor',
   '/en/artist': '/artista',
 };
 
-// Normalizamos la ruta actual (quitamos slash final si existe para comparar bien)
+// Normalizamos la ruta actual
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
-// Buscamos la ruta traducida. Si no existe, mandamos al home del otro idioma por defecto.
 const targetLangHome = currentLocale === 'es' ? '/en' : '/';
 const translatedPath = routeMap[currentPath] || targetLangHome;
 
-// 5. Link de WhatsApp
-const phoneNumber = "17325549119";
-const encodedMessage = encodeURIComponent(t.contact.message);
-const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+// (Lógica de WhatsApp eliminada)
 ---
 
 <header class="sticky top-0 w-full z-50 transition-all duration-300 bg-black/50 backdrop-blur-md border-b border-white/5">
@@ -93,33 +79,39 @@ const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
           </li>
         ))}
 
-         {/* Botón de Contacto (Sin Icono) */}
-        <li>
-          <a 
-            href={whatsappLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-accent hover:text-white transition-colors duration-300"
-          >
-            {t.contact.text}
-          </a>
-        </li>
-
         {/* Separador Vertical Sutil */}
         <li class="h-4 w-px bg-white/20"></li>
 
-        {/* Botón de Idioma (Solo Texto) */}
+        {/* Botón de Idioma (EN | ES) */}
         <li>
-          <a 
-            href={translatedPath}
-            class="text-xs md:text-sm font-bold text-white hover:text-accent transition-colors duration-300 uppercase tracking-widest"
-            aria-label="Change Language"
-          >
-            {t.langLabel}
-          </a>
-        </li>
+          <div class="flex items-center gap-2 text-xs md:text-sm font-bold uppercase tracking-widest text-white">
+            {/* EN: Si el idioma actual es EN, mostramos texto estático. Si no, mostramos enlace. */}
+            {currentLocale === 'en' ? (
+              <span class="text-accent cursor-default">EN</span>
+            ) : (
+              <a 
+                href={translatedPath} 
+                class="hover:text-accent transition-colors duration-300"
+              >
+                EN
+              </a>
+            )}
 
-       
+            <span class="opacity-50">|</span>
+
+            {/* ES: Si el idioma actual es ES, mostramos texto estático. Si no, mostramos enlace. */}
+            {currentLocale === 'es' ? (
+              <span class="text-accent cursor-default">ES</span>
+            ) : (
+              <a 
+                href={translatedPath} 
+                class="hover:text-accent transition-colors duration-300"
+              >
+                ES
+              </a>
+            )}
+          </div>
+        </li>
 
       </ul>
     </nav>

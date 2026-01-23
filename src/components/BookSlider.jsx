@@ -21,9 +21,11 @@ export default function BookSlider({ books, actionText = "Ver Detalles" }) {
     if (index === activeIndex) {
       return "z-30 scale-100 opacity-100 translate-x-0 rotate-y-0 grayscale-0";
     } else if (index === prevIndex) {
-      return "z-20 scale-90 opacity-50 -translate-x-[70%] md:-translate-x-[130%] rotate-y-12 cursor-pointer hover:opacity-100 transition-all duration-500";
+      // MODIFICADO: opacity-80 en móvil para que se vea sin hover, opacity-50 en desktop
+      return "z-20 scale-90 opacity-80 md:opacity-50 -translate-x-[70%] md:-translate-x-[130%] rotate-y-12 cursor-pointer hover:opacity-100 transition-all duration-500";
     } else if (index === nextIndex) {
-      return "z-20 scale-90 opacity-50 translate-x-[70%] md:translate-x-[130%] -rotate-y-12 cursor-pointer hover:opacity-100 transition-all duration-500";
+      // MODIFICADO: opacity-80 en móvil para que se vea sin hover, opacity-50 en desktop
+      return "z-20 scale-90 opacity-80 md:opacity-50 translate-x-[70%] md:translate-x-[130%] -rotate-y-12 cursor-pointer hover:opacity-100 transition-all duration-500";
     } else {
       return "z-10 scale-50 opacity-0 translate-x-0 pointer-events-none";
     }

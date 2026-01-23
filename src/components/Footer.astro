@@ -1,13 +1,36 @@
 ---
 const currentYear = new Date().getFullYear();
+
+// 1. Definir la interfaz para los textos
+interface Translation {
+  rights: string;
+  designedBy: string;
+}
+
+// 2. Diccionario de traducciones
+const i18n: Record<string, Translation> = {
+  es: {
+    rights: "Todos los derechos reservados.",
+    designedBy: "Diseñado por"
+  },
+  en: {
+    rights: "All Rights Reserved.",
+    designedBy: "Designed by"
+  }
+};
+
+// 3. Obtener el idioma actual
+const currentLocale = Astro.currentLocale || 'es';
+const t = i18n[currentLocale] || i18n['es'];
 ---
+
 <footer id="contact" class="py-12 bg-black border-t border-white/10 text-center">
     <div class="max-w-4xl mx-auto px-6">
         <p class="text-gray-500 text-sm mb-4">
-            &copy; {currentYear} FJ Cueva. All Rights Reserved.
+            &copy; {currentYear} FJ Cueva. {t.rights}
         </p>
         <p class="text-xs text-gray-600">
-            Diseñado por <a href="https://hikevodesign.com" target="_blank" class="text-accent hover:underline">Hikevo Design</a>
+            {t.designedBy} <a href="https://hikevodesign.com" target="_blank" class="text-accent hover:underline">Hikevo Design</a>
         </p>
     </div>
 </footer>
