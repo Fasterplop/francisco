@@ -1,13 +1,14 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import MasonryGallery from '../../components/MasonryGallery';
+import SensitiveContentWarning from '../../components/SensitiveContentWarning';
 ---
 
 <Layout 
   title="Visual Artist | FJ Cueva"
   description="Art Gallery: Body Painting, Oil, and Watercolor. Exploring the architecture of the body."
 >
-  
+  <SensitiveContentWarning client:load lang="en" />
   <section class="relative pt-40 pb-20 px-6 text-center overflow-hidden">
     <div class="absolute inset-0 opacity-[0.10] pointer-events-none mix-blend-overlay" style="background-image: url('https://grainy-gradients.vercel.app/noise.svg');"></div>
     

@@ -24,7 +24,7 @@ const { currentLocale } = Astro;
 	</head>
 	<body class="bg-black text-white font-sans antialiased selection:bg-accent selection:text-black">
         <Navbar />
-		<PromoModal client:load />
+		<PromoModal client:load lang={currentLocale} />
 		<slot />
         <Footer />
 	</body>
