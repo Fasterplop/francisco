@@ -1,11 +1,8 @@
-// src/pages/api/promo.ts
 import { Resend } from 'resend';
 import type { APIRoute } from 'astro';
 
-// 1. OBLIGATORIO: Activa el modo servidor para este archivo
 export const prerender = false;
 
-// Función de limpieza
 const sanitize = (text: string) => {
   return text
     .replace(/&/g, "&amp;")
@@ -15,22 +12,27 @@ const sanitize = (text: string) => {
     .replace(/'/g, "&#039;");
 };
 
-export const POST: APIRoute = async ({ request }) => {
+// 1. AGREGAMOS 'locals' A LOS ARGUMENTOS
+export const POST: APIRoute = async ({ request, locals }) => {
   try {
-    // 2. OBTENER CLAVE: Verificamos si existe antes de usarla
-    const apiKey = import.meta.env.RESEND_API_KEY;
+    // 2. CORRECCIÓN CRÍTICA:
+    // Intentamos leer la clave desde el entorno de Cloudflare (Runtime)
+    // Si no existe (ej: en local), usamos import.meta.env
+    // @ts-ignore (Ignoramos error de tipo si TS se queja de runtime)
+    const runtimeEnv = locals.runtime?.env || {}; 
+    const apiKey = runtimeEnv.RESEND_API_KEY || import.meta.env.RESEND_API_KEY;
     
+    // Diagnóstico en logs de Cloudflare
     if (!apiKey) {
-      console.error("ERROR CRÍTICO: Falta la variable RESEND_API_KEY");
-      return new Response(JSON.stringify({ error: 'Error de configuración del servidor (Falta API Key)' }), { status: 500 });
+      console.error("ERROR FATAL: No se encontró RESEND_API_KEY en locals.runtime.env ni en import.meta.env");
+      return new Response(JSON.stringify({ error: 'Configuración del servidor incompleta (Falta API Key)' }), { status: 500 });
     }
 
-    // 3. INICIALIZAR RESEND (Adentro de la función, protegido)
     const resend = new Resend(apiKey);
 
     const data = await request.formData();
     
-    // Extraer campos
+    // Extraer datos
     const name = data.get('name') as string;
     const email = data.get('email') as string;
     const instagram = data.get('instagram') as string;
@@ -43,12 +45,11 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response(JSON.stringify({ message: 'Enviado' }), { status: 200 });
     }
 
-    // Validación básica
+    // Validación
     if (!name || !email || !message) {
-      return new Response(JSON.stringify({ message: 'Faltan campos requeridos' }), { status: 400 });
+      return new Response(JSON.stringify({ message: 'Faltan campos' }), { status: 400 });
     }
 
-    // Sanitización
     const cleanName = sanitize(name.trim());
     const cleanEmail = sanitize(email.trim());
     const cleanIG = instagram ? sanitize(instagram.trim()) : 'No indicado';
@@ -56,26 +57,23 @@ export const POST: APIRoute = async ({ request }) => {
     const cleanType = sessionType ? sanitize(sessionType.trim()) : 'No seleccionado';
     const adultStatus = isAdult ? "✅ Sí (+18)" : "❌ No confirmado";
 
-    // 4. ENVÍO DEL CORREO
+    // 3. ¡IMPORTANTE! Reemplaza 'tucorreo@gmail.com' con tu email real si no lo has hecho
     const { data: emailData, error } = await resend.emails.send({
       from: 'FJ Cueva Web <web@fj-cueva.com>', 
-      to: ['tucorreo@gmail.com'], // <--- ¡ASEGÚRATE DE PONER TU CORREO REAL AQUÍ!
+      to: ['tucorreo@gmail.com'], 
       replyTo: cleanEmail,
       subject: `🎨 Nuevo Lead: ${cleanName}`,
       html: `
         <div style="font-family: sans-serif; padding: 20px; color: #111;">
           <h2 style="color: #000;">Nueva Solicitud de Bodypaint</h2>
           <hr style="border: 0; border-top: 1px solid #ddd; margin: 20px 0;" />
-          
           <p><strong>Nombre:</strong> ${cleanName}</p>
           <p><strong>Email:</strong> <a href="mailto:${cleanEmail}">${cleanEmail}</a></p>
           <p><strong>Instagram:</strong> ${cleanIG}</p>
-          <p><strong>Tipo de Sesión:</strong> ${cleanType}</p>
-          <p><strong>Mayor de edad:</strong> ${adultStatus}</p>
-          
-          <br/>
-          <p><strong>Mensaje:</strong></p>
-          <div style="background: #f4f4f5; padding: 15px; border-radius: 8px; border-left: 4px solid #333;">
+          <p><strong>Tipo:</strong> ${cleanType}</p>
+          <p><strong>Edad +18:</strong> ${adultStatus}</p>
+          <div style="background: #f4f4f5; padding: 15px; border-radius: 8px; margin-top: 20px;">
+            <strong>Mensaje:</strong><br/>
             ${cleanMsg.replace(/\n/g, '<br>')}
           </div>
         </div>
