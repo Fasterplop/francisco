@@ -57,10 +57,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const cleanType = sessionType ? sanitize(sessionType.trim()) : 'No seleccionado';
     const adultStatus = isAdult ? "✅ Sí (+18)" : "❌ No confirmado";
 
-    // 3. ¡IMPORTANTE! Reemplaza 'tucorreo@gmail.com' con tu email real si no lo has hecho
+    
     const { data: emailData, error } = await resend.emails.send({
       from: 'FJ Cueva Web <web@fj-cueva.com>', 
-      to: ['tucorreo@gmail.com'], 
+      to: ['grabarico@gmail.com'], 
       replyTo: cleanEmail,
       subject: `🎨 Nuevo Lead: ${cleanName}`,
       html: `

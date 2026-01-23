@@ -9,7 +9,6 @@ interface MenuItem {
 
 interface Translation {
   menu: MenuItem[];
-  // Contacto eliminado
   langLabel: string; 
 }
 
@@ -21,7 +20,6 @@ const i18n: Record<string, Translation> = {
       { name: 'Escritor', href: '/escritor' },
       { name: 'Artista', href: '/artista' },
     ],
-    // Contacto eliminado
     langLabel: 'EN' 
   },
   en: {
@@ -30,7 +28,6 @@ const i18n: Record<string, Translation> = {
       { name: 'Writer', href: '/en/writer' },
       { name: 'Artist', href: '/en/artist' },
     ],
-    // Contacto eliminado
     langLabel: 'ES'
   }
 };
@@ -39,35 +36,38 @@ const i18n: Record<string, Translation> = {
 const currentLocale = Astro.currentLocale || 'es';
 const t = i18n[currentLocale] || i18n['es'];
 
-// 4. Lógica de Ruteo para el cambio de idioma
+// 4. Lógica de Ruteo
 const routeMap: Record<string, string> = {
-  // De Español a Inglés
   '/': '/en',
   '/escritor': '/en/writer',
   '/artista': '/en/artist',
-  // De Inglés a Español
   '/en': '/',
   '/en/': '/', 
   '/en/writer': '/escritor',
   '/en/artist': '/artista',
 };
 
-// Normalizamos la ruta actual
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
 const targetLangHome = currentLocale === 'es' ? '/en' : '/';
 const translatedPath = routeMap[currentPath] || targetLangHome;
-
-// (Lógica de WhatsApp eliminada)
 ---
 
 <header class="sticky top-0 w-full z-50 transition-all duration-300 bg-black/50 backdrop-blur-md border-b border-white/5">
   
-  <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-center relative">
+  {/* py-3 permite que la altura se ajuste automáticamente a las dos lineas en móvil */}
+  <div class="max-w-7xl mx-auto px-6 py-3 md:py-0 md:h-20 flex items-center justify-center relative">
 
-    <nav>
-      <ul class="flex items-center gap-8 md:gap-10 list-none m-0 p-0">
-        
-        {/* Enlaces del Menú */}
+    {/* ESTRUCTURA PRINCIPAL:
+        - Mobile: flex-col (Columna) -> Pone los enlaces arriba y el idioma abajo.
+        - Desktop: flex-row (Fila) -> Pone todo en una sola línea.
+    */}
+    <nav class="flex flex-col md:flex-row items-center gap-3 md:gap-10">
+      
+      {/* GRUPO 1: ENLACES
+          - flex-row: ¡Clave! Fuerza a que los enlaces estén siempre lado a lado (horizontal),
+            incluso en móvil.
+      */}
+      <ul class="flex flex-row items-center gap-6 md:gap-10 list-none m-0 p-0">
         {t.menu.map((item) => (
           <li>
             <a 
@@ -78,42 +78,31 @@ const translatedPath = routeMap[currentPath] || targetLangHome;
             </a>
           </li>
         ))}
-
-        {/* Separador Vertical Sutil */}
-        <li class="h-4 w-px bg-white/20"></li>
-
-        {/* Botón de Idioma (EN | ES) */}
-        <li>
-          <div class="flex items-center gap-2 text-xs md:text-sm font-bold uppercase tracking-widest text-white">
-            {/* EN: Si el idioma actual es EN, mostramos texto estático. Si no, mostramos enlace. */}
-            {currentLocale === 'en' ? (
-              <span class="text-accent cursor-default">EN</span>
-            ) : (
-              <a 
-                href={translatedPath} 
-                class="hover:text-accent transition-colors duration-300"
-              >
-                EN
-              </a>
-            )}
-
-            <span class="opacity-50">|</span>
-
-            {/* ES: Si el idioma actual es ES, mostramos texto estático. Si no, mostramos enlace. */}
-            {currentLocale === 'es' ? (
-              <span class="text-accent cursor-default">ES</span>
-            ) : (
-              <a 
-                href={translatedPath} 
-                class="hover:text-accent transition-colors duration-300"
-              >
-                ES
-              </a>
-            )}
-          </div>
-        </li>
-
       </ul>
+
+      {/* SEPARADOR (Solo visible en Desktop) */}
+      <div class="hidden md:block h-4 w-px bg-white/20"></div>
+
+      {/* GRUPO 2: IDIOMA
+          - Al estar fuera del <ul> anterior, en móvil cae a la siguiente línea
+            gracias al flex-col del padre (<nav>).
+      */}
+      <div class="flex items-center gap-2 text-xs md:text-sm font-bold uppercase tracking-widest text-white">
+        {currentLocale === 'en' ? (
+          <span class="text-accent cursor-default">EN</span>
+        ) : (
+          <a href={translatedPath} class="hover:text-accent transition-colors duration-300">EN</a>
+        )}
+
+        <span class="opacity-50">|</span>
+
+        {currentLocale === 'es' ? (
+          <span class="text-accent cursor-default">ES</span>
+        ) : (
+          <a href={translatedPath} class="hover:text-accent transition-colors duration-300">ES</a>
+        )}
+      </div>
+
     </nav>
 
   </div>
