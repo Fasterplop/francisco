@@ -36,12 +36,14 @@ export default function MobileMenu({ links, routes, isEs }) {
             transition={{ duration: 0.3 }} 
             className="fixed inset-0 bg-black z-[60] flex flex-col justify-center items-center w-screen h-screen"
           >
-            <ul className="flex flex-col items-center gap-10">
+            
+            {/* 1. BLOQUE NAVEGACIÓN (Arriba/Centro) */}
+            <ul className="flex flex-col items-center gap-12 mb-16">
               <li>
                 <a 
                   href={routes.writer} 
                   onClick={() => setIsOpen(false)}
-                  className="text-3xl font-bold uppercase tracking-widest text-gray-300 hover:text-white transition-colors"
+                  className="text-4xl font-bold uppercase tracking-widest text-zinc-400 hover:text-white transition-colors"
                 >
                   {links.writer}
                 </a>
@@ -51,50 +53,53 @@ export default function MobileMenu({ links, routes, isEs }) {
                 <a 
                   href={routes.artist} 
                   onClick={() => setIsOpen(false)}
-                  className="text-3xl font-bold uppercase tracking-widest text-gray-300 hover:text-white transition-colors"
+                  className="text-4xl font-bold uppercase tracking-widest text-zinc-400 hover:text-white transition-colors"
                 >
                   {links.artist}
                 </a>
               </li>
-
-              {/* Contacto eliminado de aquí */}
-
-              <div className="w-16 h-px bg-white/20 my-2"></div>
-
-              {/* Selector de Idioma EN | ES */}
-              <li>
-                <div className="flex items-center gap-4 text-3xl font-bold uppercase tracking-widest">
-                  
-                  {/* EN Logic */}
-                  {!isEs ? (
-                    <span className="text-accent cursor-default">EN</span>
-                  ) : (
-                    <a 
-                      href={routes.langSwitch} 
-                      className="text-white/50 hover:text-white transition-colors"
-                    >
-                      EN
-                    </a>
-                  )}
-
-                  <span className="text-white/30">|</span>
-
-                  {/* ES Logic */}
-                  {isEs ? (
-                    <span className="text-accent cursor-default">ES</span>
-                  ) : (
-                    <a 
-                      href={routes.langSwitch} 
-                      className="text-white/50 hover:text-white transition-colors"
-                    >
-                      ES
-                    </a>
-                  )}
-                  
-                </div>
-              </li>
-
             </ul>
+
+            {/* Separador Sutil */}
+            <div className="w-16 h-px bg-white/10 mb-8"></div>
+
+            {/* 2. BLOQUE IDIOMA (Abajo) */}
+            <div className="flex items-center gap-6 text-xl font-bold uppercase tracking-[0.2em]">
+              
+              {/* Opción EN */}
+              {!isEs ? (
+                <span className="text-accent cursor-default relative">
+                  EN
+                  <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 bg-accent rounded-full"></span>
+                </span>
+              ) : (
+                <a 
+                  href={routes.langSwitch} 
+                  className="text-zinc-600 hover:text-white transition-colors"
+                >
+                  EN
+                </a>
+              )}
+
+              <span className="text-zinc-800">|</span>
+
+              {/* Opción ES */}
+              {isEs ? (
+                <span className="text-accent cursor-default relative">
+                  ES
+                  <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 bg-accent rounded-full"></span>
+                </span>
+              ) : (
+                <a 
+                  href={routes.langSwitch} 
+                  className="text-zinc-600 hover:text-white transition-colors"
+                >
+                  ES
+                </a>
+              )}
+              
+            </div>
+
           </motion.div>
         )}
       </AnimatePresence>
