@@ -7,8 +7,6 @@ import cloudflare from '@astrojs/cloudflare'; // <--- 1. IMPORTAR ADAPTADOR
 export default defineConfig({
   site: 'https://fj-cueva.com',
   
-  output: 'server', // <--- 2. ACTIVAR MODO SERVIDOR (Para que funcione la API)
-  
   adapter: cloudflare(), // <--- 3. CONECTAR CON CLOUDFLARE
 
   vite: {
