@@ -1,7 +1,8 @@
+// src/pages/api/promo.ts
 import { Resend } from 'resend';
 import type { APIRoute } from 'astro';
 
-// 1. OBLIGATORIO: Modo dinámico para Cloudflare
+// 1. OBLIGATORIO: Activa el modo servidor para este archivo
 export const prerender = false;
 
 // Función de limpieza
@@ -16,15 +17,15 @@ const sanitize = (text: string) => {
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    // 2. DIAGNÓSTICO: Verificamos si la clave existe
+    // 2. OBTENER CLAVE: Verificamos si existe antes de usarla
     const apiKey = import.meta.env.RESEND_API_KEY;
     
     if (!apiKey) {
-      console.error("CRITICAL ERROR: RESEND_API_KEY is missing in environment variables.");
-      return new Response(JSON.stringify({ error: 'Server misconfiguration: Missing API Key' }), { status: 500 });
+      console.error("ERROR CRÍTICO: Falta la variable RESEND_API_KEY");
+      return new Response(JSON.stringify({ error: 'Error de configuración del servidor (Falta API Key)' }), { status: 500 });
     }
 
-    // 3. INICIALIZACIÓN SEGURA: Iniciamos Resend DENTRO de la función
+    // 3. INICIALIZAR RESEND (Adentro de la función, protegido)
     const resend = new Resend(apiKey);
 
     const data = await request.formData();
@@ -42,9 +43,9 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response(JSON.stringify({ message: 'Enviado' }), { status: 200 });
     }
 
-    // Validación
+    // Validación básica
     if (!name || !email || !message) {
-      return new Response(JSON.stringify({ message: 'Faltan campos' }), { status: 400 });
+      return new Response(JSON.stringify({ message: 'Faltan campos requeridos' }), { status: 400 });
     }
 
     // Sanitización
@@ -53,26 +54,30 @@ export const POST: APIRoute = async ({ request }) => {
     const cleanIG = instagram ? sanitize(instagram.trim()) : 'No indicado';
     const cleanMsg = sanitize(message.trim());
     const cleanType = sessionType ? sanitize(sessionType.trim()) : 'No seleccionado';
-    const adultStatus = isAdult ? "✅ Sí (+18)" : "❌ No";
+    const adultStatus = isAdult ? "✅ Sí (+18)" : "❌ No confirmado";
 
-    // Envío
+    // 4. ENVÍO DEL CORREO
     const { data: emailData, error } = await resend.emails.send({
-      from: 'FJ Cueva Web <web@fj-cueva.com>', // Asegúrate que este dominio esté verificado en Resend
-      to: ['tucorreo@gmail.com'], // <--- TU CORREO REAL
+      from: 'FJ Cueva Web <web@fj-cueva.com>', 
+      to: ['tucorreo@gmail.com'], // <--- ¡ASEGÚRATE DE PONER TU CORREO REAL AQUÍ!
       replyTo: cleanEmail,
       subject: `🎨 Nuevo Lead: ${cleanName}`,
       html: `
-        <div style="font-family: sans-serif; padding: 20px; color: #333;">
-          <h2>Nueva Solicitud de Bodypaint</h2>
-          <hr/>
+        <div style="font-family: sans-serif; padding: 20px; color: #111;">
+          <h2 style="color: #000;">Nueva Solicitud de Bodypaint</h2>
+          <hr style="border: 0; border-top: 1px solid #ddd; margin: 20px 0;" />
+          
           <p><strong>Nombre:</strong> ${cleanName}</p>
-          <p><strong>Email:</strong> ${cleanEmail}</p>
+          <p><strong>Email:</strong> <a href="mailto:${cleanEmail}">${cleanEmail}</a></p>
           <p><strong>Instagram:</strong> ${cleanIG}</p>
-          <p><strong>Tipo:</strong> ${cleanType}</p>
+          <p><strong>Tipo de Sesión:</strong> ${cleanType}</p>
           <p><strong>Mayor de edad:</strong> ${adultStatus}</p>
+          
           <br/>
           <p><strong>Mensaje:</strong></p>
-          <blockquote style="background: #eee; padding: 15px;">${cleanMsg}</blockquote>
+          <div style="background: #f4f4f5; padding: 15px; border-radius: 8px; border-left: 4px solid #333;">
+            ${cleanMsg.replace(/\n/g, '<br>')}
+          </div>
         </div>
       `,
     });
@@ -86,7 +91,6 @@ export const POST: APIRoute = async ({ request }) => {
 
   } catch (e) {
     console.error("Server Crash:", e);
-    // Convertimos el error a string de forma segura
     const errorMessage = e instanceof Error ? e.message : String(e);
     return new Response(JSON.stringify({ error: errorMessage }), { status: 500 });
   }
