@@ -1,12 +1,16 @@
 // astro.config.mjs
 import { defineConfig } from 'astro/config';
-import tailwindcss from '@tailwindcss/vite'; // <--- OJO: Esta es la importación correcta para v4
+import tailwindcss from '@tailwindcss/vite';
 import react from '@astrojs/react';
+import cloudflare from '@astrojs/cloudflare'; // <--- 1. IMPORTAR ADAPTADOR
 
 export default defineConfig({
   site: 'https://fj-cueva.com',
   
-  // Configuración para Tailwind v4
+  output: 'server', // <--- 2. ACTIVAR MODO SERVIDOR (Para que funcione la API)
+  
+  adapter: cloudflare(), // <--- 3. CONECTAR CON CLOUDFLARE
+
   vite: {
     plugins: [tailwindcss()],
   },
