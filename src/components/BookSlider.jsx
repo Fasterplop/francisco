@@ -4,6 +4,36 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa6';
 // AHORA RECIBIMOS 'actionText' COMO PROP (con un valor por defecto por seguridad)
 export default function BookSlider({ books, actionText = "Ver Detalles" }) {
   const [activeIndex, setActiveIndex] = useState(0);
+  
+  // Estados para controlar el swipe
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+
+  // Distancia mínima en píxeles para considerar el movimiento como un swipe
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e) => {
+    setTouchEnd(null); // Reseteamos el valor final
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return; // Si no hubo arrastre, no hacemos nada
+
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      nextSlide(); // Deslizar a la izquierda -> Siguiente libro
+    } else if (isRightSwipe) {
+      prevSlide(); // Deslizar a la derecha -> Libro anterior
+    }
+  };
 
   const nextSlide = () => {
     setActiveIndex((prev) => (prev + 1) % books.length);
@@ -32,7 +62,13 @@ export default function BookSlider({ books, actionText = "Ver Detalles" }) {
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto py-12 relative flex justify-center items-center perspective-container">
+    <div 
+      // Se agregan los eventos de touch y la clase touch-pan-y para mejor UX
+      className="w-full max-w-7xl mx-auto py-12 relative flex justify-center items-center perspective-container touch-pan-y"
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
+    >
       
       <div className="relative w-full h-[550px] md:h-[650px] flex justify-center items-center perspective-[1200px]">
         
