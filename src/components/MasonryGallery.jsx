@@ -3,59 +3,7 @@ import { createPortal } from 'react-dom'; // <--- IMPORTANTE: Importamos createP
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
-// --- (TUS IMPORTACIONES DE IMÁGENES - NO CAMBIAN) ---
-// CATRINA BODYPAINT
-import catrina4 from '../assets/CATRINABODY/4.png';
-import catrina6 from '../assets/CATRINABODY/6.png';
-import catrina8 from '../assets/CATRINABODY/8.png';
-import catrina10 from '../assets/CATRINABODY/10.png';
-import catrina15 from '../assets/CATRINABODY/15.png';
-import catrina18 from '../assets/CATRINABODY/18.png';
-import catrina19 from '../assets/CATRINABODY/19.png';
-import catrina23 from '../assets/CATRINABODY/23.png';
-import catrina28 from '../assets/CATRINABODY/28.png';
-import catrina29 from '../assets/CATRINABODY/29.png';
-import catrina31 from '../assets/CATRINABODY/31.png';
-import catrina39 from '../assets/CATRINABODY/39.png';
-import catrina41 from '../assets/CATRINABODY/41.png';
-import catrina43 from '../assets/CATRINABODY/43.png';
-
-// ACUARELAS
-import acuarela1 from '../assets/ACUARELAS/1.png';
-import acuarela2 from '../assets/ACUARELAS/2.png';
-import acuarela3 from '../assets/ACUARELAS/3.png';
-import acuarela4 from '../assets/ACUARELAS/4.png';
-import acuarela5 from '../assets/ACUARELAS/5.png';
-import acuarela6 from '../assets/ACUARELAS/6.png';
-import acuarela7 from '../assets/ACUARELAS/7.png';
-import acuarela8 from '../assets/ACUARELAS/8.png';
-import acuarela9 from '../assets/ACUARELAS/9.png';
-import acuarela10 from '../assets/ACUARELAS/10.png';
-import acuarela11 from '../assets/ACUARELAS/11.png';
-import acuarela12 from '../assets/ACUARELAS/12.png';
-import acuarela13 from '../assets/ACUARELAS/13.png';
-
-// FIRST BODYPAINT
-import first2 from '../assets/FIRSTBODY/2.png';
-import first4 from '../assets/FIRSTBODY/4.png';
-import first5 from '../assets/FIRSTBODY/5.png';
-import first6 from '../assets/FIRSTBODY/6.png';
-import first7 from '../assets/FIRSTBODY/7.png';
-import first8 from '../assets/FIRSTBODY/8.png';
-import first9 from '../assets/FIRSTBODY/9.png';
-import first11 from '../assets/FIRSTBODY/11.png';
-import first13 from '../assets/FIRSTBODY/13.png';
-import first15 from '../assets/FIRSTBODY/15.png';
-import first16 from '../assets/FIRSTBODY/16.png';
-import first17 from '../assets/FIRSTBODY/17.png';
-import first18 from '../assets/FIRSTBODY/18.png';
-
-// HADA DEL AGUA BODYPAINT
-import hada17 from '../assets/HADABODY/17.png';
-import hada18 from '../assets/HADABODY/18.png';
-import hada23 from '../assets/HADABODY/23.png';
-
-// OLEOS
+// 1. OLEOS (.png)
 import oleo1 from '../assets/OLEOS/1.png';
 import oleo2 from '../assets/OLEOS/2.png';
 import oleo3 from '../assets/OLEOS/3.png';
@@ -69,25 +17,61 @@ import oleo10 from '../assets/OLEOS/10.png';
 import oleo11 from '../assets/OLEOS/11.png';
 import oleo12 from '../assets/OLEOS/12.png';
 import oleo13 from '../assets/OLEOS/13.png';
-import oleo14 from '../assets/OLEOS/14.png';
-import oleo15 from '../assets/OLEOS/15.png';
-import oleo16 from '../assets/OLEOS/16.png';
-import oleo17 from '../assets/OLEOS/17.png';
-import oleo18 from '../assets/OLEOS/18.png';
-import oleo19 from '../assets/OLEOS/19.png';
 
-// PASTELES
-import pastel1 from '../assets/PASTELES/1.png';
-import pastel2 from '../assets/PASTELES/2.png';
-import pastel3 from '../assets/PASTELES/3.png';
-import pastel4 from '../assets/PASTELES/4.png';
-import pastel5 from '../assets/PASTELES/5.png';
-import pastel6 from '../assets/PASTELES/6.png';
-import pastel7 from '../assets/PASTELES/7.png';
-import pastel8 from '../assets/PASTELES/8.png';
-import pastel9 from '../assets/PASTELES/9.png';
-import pastel10 from '../assets/PASTELES/10.png';
-import pastel11 from '../assets/PASTELES/11.png';
+// 2. PASTELES (.jpeg) - Nota: Carpeta "Pasteles"
+import pastel1 from '../assets/Pasteles/1.jpeg';
+import pastel2 from '../assets/Pasteles/2.jpeg';
+import pastel3 from '../assets/Pasteles/3.jpeg';
+import pastel4 from '../assets/Pasteles/4.jpeg';
+import pastel5 from '../assets/Pasteles/5.jpeg';
+import pastel6 from '../assets/Pasteles/6.jpeg';
+import pastel7 from '../assets/Pasteles/7.jpeg';
+import pastel8 from '../assets/Pasteles/8.jpeg';
+import pastel9 from '../assets/Pasteles/9.jpeg';
+import pastel10 from '../assets/Pasteles/10.jpeg';
+import pastel11 from '../assets/Pasteles/11.jpeg';
+
+// 3. ACUARELAS (.jpg) - Nota: Carpeta "acuarelas"
+import acuarela1 from '../assets/acuarelas/1.jpg';
+import acuarela2 from '../assets/acuarelas/2.jpg';
+import acuarela3 from '../assets/acuarelas/3.jpg';
+import acuarela4 from '../assets/acuarelas/4.jpg';
+import acuarela5 from '../assets/acuarelas/5.jpg';
+import acuarela6 from '../assets/acuarelas/6.jpg';
+import acuarela7 from '../assets/acuarelas/7.jpg';
+import acuarela8 from '../assets/acuarelas/8.jpg';
+import acuarela9 from '../assets/acuarelas/9.jpg';
+import acuarela10 from '../assets/acuarelas/10.jpg';
+import acuarela11 from '../assets/acuarelas/11.jpg';
+import acuarela12 from '../assets/acuarelas/12.jpg';
+import acuarela13 from '../assets/acuarelas/13.jpg';
+
+// 4. BODYPAINT (.png) - Nota: Carpeta "bodypaint"
+import body1 from '../assets/bodypaint/1.png';
+import body3 from '../assets/bodypaint/3.png';
+import body5 from '../assets/bodypaint/5.png';
+import body7 from '../assets/bodypaint/7.png';
+import body9 from '../assets/bodypaint/9.png';
+import body10 from '../assets/bodypaint/10.png';
+import body11 from '../assets/bodypaint/11.png';
+import body12 from '../assets/bodypaint/12.png';
+
+// 5. CATRINA (.png) - Nota: Carpeta "bodypaintcatrina"
+import catrina1 from '../assets/bodypaintcatrina/1.png';
+import catrina5 from '../assets/bodypaintcatrina/5.png';
+import catrina6 from '../assets/bodypaintcatrina/6.png';
+import catrina7 from '../assets/bodypaintcatrina/7.png';
+import catrina9 from '../assets/bodypaintcatrina/9.png';
+
+// 6. HADA DEL AGUA (.png) - Nota: Carpeta "bodypainthadadelagua"
+import hada2 from '../assets/bodypainthadadelagua/2.png';
+import hada7 from '../assets/bodypainthadadelagua/7.png';
+import hada9 from '../assets/bodypainthadadelagua/9.png';
+import hada11 from '../assets/bodypainthadadelagua/11.png';
+import hada18 from '../assets/bodypainthadadelagua/18.png';
+import hada19 from '../assets/bodypainthadadelagua/19.png';
+import hada22 from '../assets/bodypainthadadelagua/22.png';
+import hada26 from '../assets/bodypainthadadelagua/26.png';
 
 // 2. CONFIGURACIÓN DE FILTROS
 const FILTERS = [
@@ -98,81 +82,68 @@ const FILTERS = [
   { id: 'pastel', label: { es: 'Pasteles', en: 'Pastels' } }
 ];
 
-// 3. TUS OBRAS
+// --- 3. TUS OBRAS (NUEVA LISTA MEZCLADA) ---
 const galleryData = [
-  { id: 1, src: oleo14.src, year: '2024', title: { es: 'Óleo XIV', en: 'Oil XIV' }, categoryType: 'oil', displayCategory: { es: 'Óleo', en: 'Oil' } },
-  { id: 2, src: catrina31.src, year: '2024', title: { es: 'Catrina XXXI', en: 'Catrina XXXI' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
+  // MEZCLA ALEATORIA
+  { id: 0, src: acuarela2.src, year: '2024', title: { es: 'Acuarela II', en: 'Watercolor II' }, categoryType: 'watercolor', displayCategory: { es: 'Acuarela', en: 'Watercolor' } },
+  { id: 1, src: oleo1.src, year: '2024', title: { es: 'Óleo I', en: 'Oil I' }, categoryType: 'oil', displayCategory: { es: 'Óleo', en: 'Oil' } },
+  { id: 2, src: catrina1.src, year: '2024', title: { es: 'Catrina I', en: 'Catrina I' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
   { id: 3, src: acuarela5.src, year: '2024', title: { es: 'Acuarela V', en: 'Watercolor V' }, categoryType: 'watercolor', displayCategory: { es: 'Acuarela', en: 'Watercolor' } },
-  { id: 4, src: pastel2.src, year: '2024', title: { es: 'Pastel II', en: 'Pastel II' }, categoryType: 'pastel', displayCategory: { es: 'Pastel', en: 'Pastel' } },
-  { id: 5, src: first13.src, year: '2024', title: { es: 'Bodypaint XIII', en: 'Bodypaint XIII' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
-  { id: 6, src: oleo3.src, year: '2024', title: { es: 'Óleo III', en: 'Oil III' }, categoryType: 'oil', displayCategory: { es: 'Óleo', en: 'Oil' } },
-  { id: 7, src: hada18.src, year: '2024', title: { es: 'Hada del Agua XVIII', en: 'Water Fairy XVIII' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
-  { id: 8, src: catrina6.src, year: '2024', title: { es: 'Catrina VI', en: 'Catrina VI' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
-  { id: 9, src: acuarela12.src, year: '2024', title: { es: 'Acuarela XII', en: 'Watercolor XII' }, categoryType: 'watercolor', displayCategory: { es: 'Acuarela', en: 'Watercolor' } },
+  { id: 4, src: hada2.src, year: '2024', title: { es: 'Hada del Agua II', en: 'Water Fairy II' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
+  { id: 5, src: pastel2.src, year: '2024', title: { es: 'Pastel II', en: 'Pastel II' }, categoryType: 'pastel', displayCategory: { es: 'Pastel', en: 'Pastel' } },
+  { id: 6, src: body1.src, year: '2024', title: { es: 'Bodypaint I', en: 'Bodypaint I' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
+  { id: 7, src: oleo3.src, year: '2024', title: { es: 'Óleo III', en: 'Oil III' }, categoryType: 'oil', displayCategory: { es: 'Óleo', en: 'Oil' } },
+  { id: 8, src: acuarela12.src, year: '2024', title: { es: 'Acuarela XII', en: 'Watercolor XII' }, categoryType: 'watercolor', displayCategory: { es: 'Acuarela', en: 'Watercolor' } },
+  { id: 9, src: catrina5.src, year: '2024', title: { es: 'Catrina V', en: 'Catrina V' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
   { id: 10, src: pastel8.src, year: '2024', title: { es: 'Pastel VIII', en: 'Pastel VIII' }, categoryType: 'pastel', displayCategory: { es: 'Pastel', en: 'Pastel' } },
-  { id: 11, src: oleo19.src, year: '2024', title: { es: 'Óleo XIX', en: 'Oil XIX' }, categoryType: 'oil', displayCategory: { es: 'Óleo', en: 'Oil' } },
-  { id: 12, src: first5.src, year: '2024', title: { es: 'Bodypaint V', en: 'Bodypaint V' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
-  { id: 13, src: catrina19.src, year: '2024', title: { es: 'Catrina XIX', en: 'Catrina XIX' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
-  { id: 14, src: oleo7.src, year: '2024', title: { es: 'Óleo VII', en: 'Oil VII' }, categoryType: 'oil', displayCategory: { es: 'Óleo', en: 'Oil' } },
-  { id: 15, src: acuarela1.src, year: '2024', title: { es: 'Acuarela I', en: 'Watercolor I' }, categoryType: 'watercolor', displayCategory: { es: 'Acuarela', en: 'Watercolor' } },
+  { id: 11, src: hada7.src, year: '2024', title: { es: 'Hada del Agua VII', en: 'Water Fairy VII' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
+  { id: 12, src: oleo13.src, year: '2024', title: { es: 'Óleo XIII', en: 'Oil XIII' }, categoryType: 'oil', displayCategory: { es: 'Óleo', en: 'Oil' } },
+  { id: 13, src: body3.src, year: '2024', title: { es: 'Bodypaint III', en: 'Bodypaint III' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
+  { id: 14, src: acuarela1.src, year: '2024', title: { es: 'Acuarela I', en: 'Watercolor I' }, categoryType: 'watercolor', displayCategory: { es: 'Acuarela', en: 'Watercolor' } },
+  { id: 15, src: catrina6.src, year: '2024', title: { es: 'Catrina VI', en: 'Catrina VI' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
   { id: 16, src: pastel11.src, year: '2024', title: { es: 'Pastel XI', en: 'Pastel XI' }, categoryType: 'pastel', displayCategory: { es: 'Pastel', en: 'Pastel' } },
-  { id: 17, src: hada23.src, year: '2024', title: { es: 'Hada del Agua XXIII', en: 'Water Fairy XXIII' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
-  { id: 18, src: first17.src, year: '2024', title: { es: 'Bodypaint XVII', en: 'Bodypaint XVII' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
-  { id: 19, src: oleo10.src, year: '2024', title: { es: 'Óleo X', en: 'Oil X' }, categoryType: 'oil', displayCategory: { es: 'Óleo', en: 'Oil' } },
-  { id: 20, src: catrina28.src, year: '2024', title: { es: 'Catrina XXVIII', en: 'Catrina XXVIII' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
-  { id: 21, src: acuarela9.src, year: '2024', title: { es: 'Acuarela IX', en: 'Watercolor IX' }, categoryType: 'watercolor', displayCategory: { es: 'Acuarela', en: 'Watercolor' } },
+  { id: 17, src: oleo7.src, year: '2024', title: { es: 'Óleo VII', en: 'Oil VII' }, categoryType: 'oil', displayCategory: { es: 'Óleo', en: 'Oil' } },
+  { id: 18, src: body5.src, year: '2024', title: { es: 'Bodypaint V', en: 'Bodypaint V' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
+  { id: 19, src: hada9.src, year: '2024', title: { es: 'Hada del Agua IX', en: 'Water Fairy IX' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
+  { id: 20, src: acuarela9.src, year: '2024', title: { es: 'Acuarela IX', en: 'Watercolor IX' }, categoryType: 'watercolor', displayCategory: { es: 'Acuarela', en: 'Watercolor' } },
+  { id: 21, src: oleo10.src, year: '2024', title: { es: 'Óleo X', en: 'Oil X' }, categoryType: 'oil', displayCategory: { es: 'Óleo', en: 'Oil' } },
   { id: 22, src: pastel4.src, year: '2024', title: { es: 'Pastel IV', en: 'Pastel IV' }, categoryType: 'pastel', displayCategory: { es: 'Pastel', en: 'Pastel' } },
-  { id: 23, src: oleo2.src, year: '2024', title: { es: 'Óleo II', en: 'Oil II' }, categoryType: 'oil', displayCategory: { es: 'Óleo', en: 'Oil' } },
-  { id: 24, src: catrina15.src, year: '2024', title: { es: 'Catrina XV', en: 'Catrina XV' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
-  { id: 25, src: first8.src, year: '2024', title: { es: 'Bodypaint VIII', en: 'Bodypaint VIII' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
-  { id: 26, src: oleo16.src, year: '2024', title: { es: 'Óleo XVI', en: 'Oil XVI' }, categoryType: 'oil', displayCategory: { es: 'Óleo', en: 'Oil' } },
-  { id: 27, src: acuarela3.src, year: '2024', title: { es: 'Acuarela III', en: 'Watercolor III' }, categoryType: 'watercolor', displayCategory: { es: 'Acuarela', en: 'Watercolor' } },
+  { id: 23, src: catrina7.src, year: '2024', title: { es: 'Catrina VII', en: 'Catrina VII' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
+  { id: 24, src: body7.src, year: '2024', title: { es: 'Bodypaint VII', en: 'Bodypaint VII' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
+  { id: 25, src: oleo2.src, year: '2024', title: { es: 'Óleo II', en: 'Oil II' }, categoryType: 'oil', displayCategory: { es: 'Óleo', en: 'Oil' } },
+  { id: 26, src: acuarela3.src, year: '2024', title: { es: 'Acuarela III', en: 'Watercolor III' }, categoryType: 'watercolor', displayCategory: { es: 'Acuarela', en: 'Watercolor' } },
+  { id: 27, src: hada11.src, year: '2024', title: { es: 'Hada del Agua XI', en: 'Water Fairy XI' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
   { id: 28, src: pastel6.src, year: '2024', title: { es: 'Pastel VI', en: 'Pastel VI' }, categoryType: 'pastel', displayCategory: { es: 'Pastel', en: 'Pastel' } },
-  { id: 29, src: catrina41.src, year: '2024', title: { es: 'Catrina XLI', en: 'Catrina XLI' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
-  { id: 30, src: first11.src, year: '2024', title: { es: 'Bodypaint XI', en: 'Bodypaint XI' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
-  { id: 31, src: oleo5.src, year: '2024', title: { es: 'Óleo V', en: 'Oil V' }, categoryType: 'oil', displayCategory: { es: 'Óleo', en: 'Oil' } },
+  { id: 29, src: body9.src, year: '2024', title: { es: 'Bodypaint IX', en: 'Bodypaint IX' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
+  { id: 30, src: oleo5.src, year: '2024', title: { es: 'Óleo V', en: 'Oil V' }, categoryType: 'oil', displayCategory: { es: 'Óleo', en: 'Oil' } },
+  { id: 31, src: catrina9.src, year: '2024', title: { es: 'Catrina IX', en: 'Catrina IX' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
   { id: 32, src: acuarela11.src, year: '2024', title: { es: 'Acuarela XI', en: 'Watercolor XI' }, categoryType: 'watercolor', displayCategory: { es: 'Acuarela', en: 'Watercolor' } },
   { id: 33, src: pastel1.src, year: '2024', title: { es: 'Pastel I', en: 'Pastel I' }, categoryType: 'pastel', displayCategory: { es: 'Pastel', en: 'Pastel' } },
-  { id: 34, src: catrina8.src, year: '2024', title: { es: 'Catrina VIII', en: 'Catrina VIII' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
-  { id: 35, src: oleo13.src, year: '2024', title: { es: 'Óleo XIII', en: 'Oil XIII' }, categoryType: 'oil', displayCategory: { es: 'Óleo', en: 'Oil' } },
-  { id: 36, src: first2.src, year: '2024', title: { es: 'Bodypaint II', en: 'Bodypaint II' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
-  { id: 37, src: hada17.src, year: '2024', title: { es: 'Hada del Agua XVII', en: 'Water Fairy XVII' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
-  { id: 38, src: oleo8.src, year: '2024', title: { es: 'Óleo VIII', en: 'Oil VIII' }, categoryType: 'oil', displayCategory: { es: 'Óleo', en: 'Oil' } },
-  { id: 39, src: acuarela7.src, year: '2024', title: { es: 'Acuarela VII', en: 'Watercolor VII' }, categoryType: 'watercolor', displayCategory: { es: 'Acuarela', en: 'Watercolor' } },
-  { id: 40, src: pastel10.src, year: '2024', title: { es: 'Pastel X', en: 'Pastel X' }, categoryType: 'pastel', displayCategory: { es: 'Pastel', en: 'Pastel' } },
-  { id: 41, src: catrina23.src, year: '2024', title: { es: 'Catrina XXIII', en: 'Catrina XXIII' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
-  { id: 42, src: oleo1.src, year: '2024', title: { es: 'Óleo I', en: 'Oil I' }, categoryType: 'oil', displayCategory: { es: 'Óleo', en: 'Oil' } },
-  { id: 43, src: first15.src, year: '2024', title: { es: 'Bodypaint XV', en: 'Bodypaint XV' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
-  { id: 44, src: acuarela4.src, year: '2024', title: { es: 'Acuarela IV', en: 'Watercolor IV' }, categoryType: 'watercolor', displayCategory: { es: 'Acuarela', en: 'Watercolor' } },
-  { id: 45, src: pastel5.src, year: '2024', title: { es: 'Pastel V', en: 'Pastel V' }, categoryType: 'pastel', displayCategory: { es: 'Pastel', en: 'Pastel' } },
-  { id: 46, src: catrina39.src, year: '2024', title: { es: 'Catrina XXXIX', en: 'Catrina XXXIX' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
-  { id: 47, src: oleo11.src, year: '2024', title: { es: 'Óleo XI', en: 'Oil XI' }, categoryType: 'oil', displayCategory: { es: 'Óleo', en: 'Oil' } },
-  { id: 48, src: first6.src, year: '2024', title: { es: 'Bodypaint VI', en: 'Bodypaint VI' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
-  { id: 49, src: acuarela10.src, year: '2024', title: { es: 'Acuarela X', en: 'Watercolor X' }, categoryType: 'watercolor', displayCategory: { es: 'Acuarela', en: 'Watercolor' } },
-  { id: 50, src: pastel3.src, year: '2024', title: { es: 'Pastel III', en: 'Pastel III' }, categoryType: 'pastel', displayCategory: { es: 'Pastel', en: 'Pastel' } },
-  { id: 51, src: catrina10.src, year: '2024', title: { es: 'Catrina X', en: 'Catrina X' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
-  { id: 52, src: oleo17.src, year: '2024', title: { es: 'Óleo XVII', en: 'Oil XVII' }, categoryType: 'oil', displayCategory: { es: 'Óleo', en: 'Oil' } },
-  { id: 53, src: first18.src, year: '2024', title: { es: 'Bodypaint XVIII', en: 'Bodypaint XVIII' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
-  { id: 54, src: oleo4.src, year: '2024', title: { es: 'Óleo IV', en: 'Oil IV' }, categoryType: 'oil', displayCategory: { es: 'Óleo', en: 'Oil' } },
-  { id: 55, src: acuarela8.src, year: '2024', title: { es: 'Acuarela VIII', en: 'Watercolor VIII' }, categoryType: 'watercolor', displayCategory: { es: 'Acuarela', en: 'Watercolor' } },
-  { id: 56, src: pastel9.src, year: '2024', title: { es: 'Pastel IX', en: 'Pastel IX' }, categoryType: 'pastel', displayCategory: { es: 'Pastel', en: 'Pastel' } },
-  { id: 57, src: catrina43.src, year: '2024', title: { es: 'Catrina XLIII', en: 'Catrina XLIII' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
-  { id: 58, src: oleo12.src, year: '2024', title: { es: 'Óleo XII', en: 'Oil XII' }, categoryType: 'oil', displayCategory: { es: 'Óleo', en: 'Oil' } },
-  { id: 59, src: first4.src, year: '2024', title: { es: 'Bodypaint IV', en: 'Bodypaint IV' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
-  { id: 60, src: oleo6.src, year: '2024', title: { es: 'Óleo VI', en: 'Oil VI' }, categoryType: 'oil', displayCategory: { es: 'Óleo', en: 'Oil' } },
-  { id: 61, src: acuarela2.src, year: '2024', title: { es: 'Acuarela II', en: 'Watercolor II' }, categoryType: 'watercolor', displayCategory: { es: 'Acuarela', en: 'Watercolor' } },
-  { id: 62, src: pastel7.src, year: '2024', title: { es: 'Pastel VII', en: 'Pastel VII' }, categoryType: 'pastel', displayCategory: { es: 'Pastel', en: 'Pastel' } },
-  { id: 63, src: catrina18.src, year: '2024', title: { es: 'Catrina XVIII', en: 'Catrina XVIII' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
-  { id: 64, src: oleo15.src, year: '2024', title: { es: 'Óleo XV', en: 'Oil XV' }, categoryType: 'oil', displayCategory: { es: 'Óleo', en: 'Oil' } },
-  { id: 65, src: first9.src, year: '2024', title: { es: 'Bodypaint IX', en: 'Bodypaint IX' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
-  { id: 66, src: oleo9.src, year: '2024', title: { es: 'Óleo IX', en: 'Oil IX' }, categoryType: 'oil', displayCategory: { es: 'Óleo', en: 'Oil' } },
-  { id: 67, src: acuarela13.src, year: '2024', title: { es: 'Acuarela XIII', en: 'Watercolor XIII' }, categoryType: 'watercolor', displayCategory: { es: 'Acuarela', en: 'Watercolor' } },
-  { id: 68, src: catrina29.src, year: '2024', title: { es: 'Catrina XXIX', en: 'Catrina XXIX' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
-  { id: 69, src: first7.src, year: '2024', title: { es: 'Bodypaint VII', en: 'Bodypaint VII' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
-  { id: 70, src: oleo18.src, year: '2024', title: { es: 'Óleo XVIII', en: 'Oil XVIII' }, categoryType: 'oil', displayCategory: { es: 'Óleo', en: 'Oil' } },
-  { id: 71, src: acuarela6.src, year: '2024', title: { es: 'Acuarela VI', en: 'Watercolor VI' }, categoryType: 'watercolor', displayCategory: { es: 'Acuarela', en: 'Watercolor' } },
-  { id: 72, src: catrina4.src, year: '2024', title: { es: 'Catrina IV', en: 'Catrina IV' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
-  { id: 73, src: first16.src, year: '2024', title: { es: 'Bodypaint XVI', en: 'Bodypaint XVI' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } }
+  { id: 34, src: hada18.src, year: '2024', title: { es: 'Hada del Agua XVIII', en: 'Water Fairy XVIII' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
+  { id: 35, src: oleo8.src, year: '2024', title: { es: 'Óleo VIII', en: 'Oil VIII' }, categoryType: 'oil', displayCategory: { es: 'Óleo', en: 'Oil' } },
+  { id: 36, src: body10.src, year: '2024', title: { es: 'Bodypaint X', en: 'Bodypaint X' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
+  { id: 37, src: acuarela7.src, year: '2024', title: { es: 'Acuarela VII', en: 'Watercolor VII' }, categoryType: 'watercolor', displayCategory: { es: 'Acuarela', en: 'Watercolor' } },
+  { id: 38, src: pastel10.src, year: '2024', title: { es: 'Pastel X', en: 'Pastel X' }, categoryType: 'pastel', displayCategory: { es: 'Pastel', en: 'Pastel' } },
+  { id: 39, src: oleo1.src, year: '2024', title: { es: 'Óleo I', en: 'Oil I' }, categoryType: 'oil', displayCategory: { es: 'Óleo', en: 'Oil' } },
+  { id: 40, src: hada19.src, year: '2024', title: { es: 'Hada del Agua XIX', en: 'Water Fairy XIX' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
+  { id: 41, src: body11.src, year: '2024', title: { es: 'Bodypaint XI', en: 'Bodypaint XI' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
+  { id: 42, src: acuarela4.src, year: '2024', title: { es: 'Acuarela IV', en: 'Watercolor IV' }, categoryType: 'watercolor', displayCategory: { es: 'Acuarela', en: 'Watercolor' } },
+  { id: 43, src: pastel5.src, year: '2024', title: { es: 'Pastel V', en: 'Pastel V' }, categoryType: 'pastel', displayCategory: { es: 'Pastel', en: 'Pastel' } },
+  { id: 44, src: oleo11.src, year: '2024', title: { es: 'Óleo XI', en: 'Oil XI' }, categoryType: 'oil', displayCategory: { es: 'Óleo', en: 'Oil' } },
+  { id: 45, src: hada22.src, year: '2024', title: { es: 'Hada del Agua XXII', en: 'Water Fairy XXII' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
+  { id: 46, src: body12.src, year: '2024', title: { es: 'Bodypaint XII', en: 'Bodypaint XII' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
+  { id: 47, src: acuarela10.src, year: '2024', title: { es: 'Acuarela X', en: 'Watercolor X' }, categoryType: 'watercolor', displayCategory: { es: 'Acuarela', en: 'Watercolor' } },
+  { id: 48, src: pastel3.src, year: '2024', title: { es: 'Pastel III', en: 'Pastel III' }, categoryType: 'pastel', displayCategory: { es: 'Pastel', en: 'Pastel' } },
+  { id: 49, src: oleo4.src, year: '2024', title: { es: 'Óleo IV', en: 'Oil IV' }, categoryType: 'oil', displayCategory: { es: 'Óleo', en: 'Oil' } },
+  { id: 50, src: hada26.src, year: '2024', title: { es: 'Hada del Agua XXVI', en: 'Water Fairy XXVI' }, categoryType: 'bodypaint', displayCategory: { es: 'Bodypaint', en: 'Bodypaint' } },
+  { id: 51, src: acuarela8.src, year: '2024', title: { es: 'Acuarela VIII', en: 'Watercolor VIII' }, categoryType: 'watercolor', displayCategory: { es: 'Acuarela', en: 'Watercolor' } },
+  { id: 52, src: pastel9.src, year: '2024', title: { es: 'Pastel IX', en: 'Pastel IX' }, categoryType: 'pastel', displayCategory: { es: 'Pastel', en: 'Pastel' } },
+  { id: 53, src: oleo12.src, year: '2024', title: { es: 'Óleo XII', en: 'Oil XII' }, categoryType: 'oil', displayCategory: { es: 'Óleo', en: 'Oil' } },
+  { id: 54, src: oleo6.src, year: '2024', title: { es: 'Óleo VI', en: 'Oil VI' }, categoryType: 'oil', displayCategory: { es: 'Óleo', en: 'Oil' } },
+  { id: 55, src: pastel7.src, year: '2024', title: { es: 'Pastel VII', en: 'Pastel VII' }, categoryType: 'pastel', displayCategory: { es: 'Pastel', en: 'Pastel' } },
+  { id: 56, src: oleo9.src, year: '2024', title: { es: 'Óleo IX', en: 'Oil IX' }, categoryType: 'oil', displayCategory: { es: 'Óleo', en: 'Oil' } },
+  { id: 57, src: acuarela13.src, year: '2024', title: { es: 'Acuarela XIII', en: 'Watercolor XIII' }, categoryType: 'watercolor', displayCategory: { es: 'Acuarela', en: 'Watercolor' } },
+  { id: 58, src: acuarela6.src, year: '2024', title: { es: 'Acuarela VI', en: 'Watercolor VI' }, categoryType: 'watercolor', displayCategory: { es: 'Acuarela', en: 'Watercolor' } },
 ];
 
 export default function MasonryGallery({ lang = 'es' }) {
