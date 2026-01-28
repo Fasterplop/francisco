@@ -1,9 +1,8 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ZoomIn } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
-// --- IMPORTACIONES DE IMÁGENES POR CATEGORÍAS ---
-
+// --- (MANTÉN TUS IMPORTACIONES DE IMÁGENES AQUÍ ABAJO IGUAL QUE ANTES) ---
 // CATRINA BODYPAINT
 import catrina4 from '../assets/CATRINABODY/4.png';
 import catrina6 from '../assets/CATRINABODY/6.png';
@@ -186,6 +185,38 @@ export default function MasonryGallery({ lang = 'es' }) {
     return galleryData.filter(item => item.categoryType === activeFilter);
   }, [activeFilter]);
 
+  // Funciones de navegación segura
+  const handleNext = useCallback((e) => {
+    e?.stopPropagation();
+    if (!selectedImg) return;
+    const currentIndex = filteredData.findIndex((img) => img.id === selectedImg.id);
+    if (currentIndex === -1) return;
+    const nextIndex = (currentIndex + 1) % filteredData.length;
+    setSelectedImg(filteredData[nextIndex]);
+  }, [selectedImg, filteredData]);
+
+  const handlePrev = useCallback((e) => {
+    e?.stopPropagation();
+    if (!selectedImg) return;
+    const currentIndex = filteredData.findIndex((img) => img.id === selectedImg.id);
+    if (currentIndex === -1) return;
+    const prevIndex = (currentIndex - 1 + filteredData.length) % filteredData.length;
+    setSelectedImg(filteredData[prevIndex]);
+  }, [selectedImg, filteredData]);
+
+  // Manejo de teclado
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!selectedImg) return;
+      if (e.key === 'Escape') setSelectedImg(null);
+      if (e.key === 'ArrowRight') handleNext();
+      if (e.key === 'ArrowLeft') handlePrev();
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedImg, handleNext, handlePrev]);
+
   return (
     <>
       {/* --- BOTONES DE FILTRO --- */}
@@ -206,21 +237,15 @@ export default function MasonryGallery({ lang = 'es' }) {
         ))}
       </div>
 
-      {/* --- GALERÍA MASONRY (3 COLUMNAS EN MÓVIL) --- */}
-      {/* columns-3: 3 columnas por defecto (móvil)
-          gap-2: Espacio pequeño entre fotos para que quepan bien en móvil
-          md:columns-3: Mantiene 3 en tablets
-          lg:columns-4: Sube a 4 en monitores grandes
-          md:gap-6: Aumenta el espacio en pantallas grandes
-      */}
+      {/* --- GALERÍA MASONRY --- */}
       <motion.div 
-        layout
+       
         className="columns-3 lg:columns-4 gap-2 md:gap-6 px-2 md:px-4 space-y-2 md:space-y-6"
       >
         <AnimatePresence mode='popLayout'>
           {filteredData.map((art) => (
             <motion.div
-              layout
+              
               key={art.id}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -236,7 +261,6 @@ export default function MasonryGallery({ lang = 'es' }) {
                 loading="lazy"
               />
               
-              {/* Overlay solo visible al pasar el mouse (mejor experiencia en desktop, en móvil requiere toque) */}
               <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center text-center p-2 md:p-4">
                 <span className="text-[#11B6EB] text-[0.5rem] md:text-xs tracking-[0.2em] uppercase mb-1 md:mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                   {art.displayCategory[currentLang]}
@@ -251,34 +275,60 @@ export default function MasonryGallery({ lang = 'es' }) {
       </motion.div>
 
       {/* --- MODAL (LIGHTBOX) --- */}
+      {/* Z-index aumentado drásticamente (9999) para cubrir navbar y footers */}
       <AnimatePresence>
         {selectedImg && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] flex items-center justify-center bg-black/95 backdrop-blur-sm p-4"
+            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/95 backdrop-blur-md p-4"
             onClick={() => setSelectedImg(null)}
           >
-            <button className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors z-50">
-              <X size={40} />
+            {/* Botón Cerrar (Posicionado arriba a la derecha, alta prioridad) */}
+            <button 
+                onClick={(e) => { e.stopPropagation(); setSelectedImg(null); }}
+                className="absolute top-4 right-4 md:top-8 md:right-8 text-white/70 hover:text-white transition-colors z-[10000] p-2 hover:bg-white/10 rounded-full"
+            >
+              <X size={32} md:size={40} />
             </button>
 
-            <motion.div
-              layoutId={`img-${selectedImg.id}`}
-              className="relative max-w-7xl w-full flex flex-col items-center"
-              onClick={(e) => e.stopPropagation()}
+            {/* Navegación Izquierda */}
+            <button
+              onClick={handlePrev}
+              className="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-all z-[10000] p-2 hover:bg-white/10 rounded-full"
             >
-              <img
-                src={selectedImg.src}
-                alt={selectedImg.title[currentLang]}
-                className="w-auto h-auto max-h-[85vh] object-contain shadow-2xl border border-white/10"
-              />
-              <div className="mt-4 text-center">
-                <h2 className="text-xl md:text-3xl font-serif text-white">{selectedImg.title[currentLang]}</h2>
-                <p className="text-[#11B6EB] text-xs uppercase tracking-widest mt-2">
-                   {selectedImg.year} • {selectedImg.displayCategory[currentLang]}
-                </p>
+              <ChevronLeft size={40} md:size={56} />
+            </button>
+
+            {/* Navegación Derecha */}
+            <button
+              onClick={handleNext}
+              className="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-all z-[10000] p-2 hover:bg-white/10 rounded-full"
+            >
+              <ChevronRight size={40} md:size={56} />
+            </button>
+
+            {/* Contenedor de Imagen */}
+            <motion.div
+              layoutId={`img-${selectedImg.id}`} // Nota: al cambiar de imagen dentro del modal, layoutId puede causar saltos si no coincide, pero Framer suele manejarlo bien o se puede quitar para transiciones más simples.
+              className="relative w-full h-full flex flex-col items-center justify-center pointer-events-none" 
+            >
+              <div 
+                  className="pointer-events-auto flex flex-col items-center max-w-full max-h-full"
+                  onClick={(e) => e.stopPropagation()} // Evita cerrar al dar clic a la imagen
+              >
+                  <img
+                    src={selectedImg.src}
+                    alt={selectedImg.title[currentLang]}
+                    className="w-auto h-auto max-h-[75vh] md:max-h-[85vh] object-contain shadow-2xl border border-white/10"
+                  />
+                  <div className="mt-4 text-center px-4">
+                    <h2 className="text-lg md:text-3xl font-serif text-white">{selectedImg.title[currentLang]}</h2>
+                    <p className="text-[#11B6EB] text-xs uppercase tracking-widest mt-2">
+                       {selectedImg.year} • {selectedImg.displayCategory[currentLang]}
+                    </p>
+                  </div>
               </div>
             </motion.div>
           </motion.div>
