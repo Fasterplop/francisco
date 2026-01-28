@@ -1,8 +1,9 @@
 import React, { useState, useMemo, useEffect, useCallback } from 'react';
+import { createPortal } from 'react-dom'; // <--- IMPORTANTE: Importamos createPortal
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
-// --- (MANTÉN TUS IMPORTACIONES DE IMÁGENES AQUÍ ABAJO IGUAL QUE ANTES) ---
+// --- (TUS IMPORTACIONES DE IMÁGENES - NO CAMBIAN) ---
 // CATRINA BODYPAINT
 import catrina4 from '../assets/CATRINABODY/4.png';
 import catrina6 from '../assets/CATRINABODY/6.png';
@@ -177,7 +178,13 @@ const galleryData = [
 export default function MasonryGallery({ lang = 'es' }) {
   const [selectedImg, setSelectedImg] = useState(null);
   const [activeFilter, setActiveFilter] = useState('all');
+  const [mounted, setMounted] = useState(false); // Para el Portal
   const currentLang = lang || 'es';
+
+  // Solo podemos usar Portals cuando el componente está montado en el cliente
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Filtramos las imágenes
   const filteredData = useMemo(() => {
@@ -237,15 +244,13 @@ export default function MasonryGallery({ lang = 'es' }) {
         ))}
       </div>
 
-      {/* --- GALERÍA MASONRY --- */}
+      {/* --- GALERÍA MASONRY (SIN LAYOUT PARA EVITAR CAÍDAS) --- */}
       <motion.div 
-       
         className="columns-3 lg:columns-4 gap-2 md:gap-6 px-2 md:px-4 space-y-2 md:space-y-6"
       >
-        <AnimatePresence mode='popLayout'>
+        <AnimatePresence>
           {filteredData.map((art) => (
             <motion.div
-              
               key={art.id}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -274,49 +279,49 @@ export default function MasonryGallery({ lang = 'es' }) {
         </AnimatePresence>
       </motion.div>
 
-      {/* --- MODAL (LIGHTBOX) --- */}
-      {/* Z-index aumentado drásticamente (9999) para cubrir navbar y footers */}
-      <AnimatePresence>
-        {selectedImg && (
+      {/* --- MODAL CON PORTAL (FUERA DE CUALQUIER SECTION PADRE) --- */}
+      {mounted && selectedImg && createPortal(
+        <AnimatePresence>
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/95 backdrop-blur-md p-4"
+            className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/95 backdrop-blur-md p-4"
             onClick={() => setSelectedImg(null)}
           >
-            {/* Botón Cerrar (Posicionado arriba a la derecha, alta prioridad) */}
+            {/* Botón Cerrar (Ajustado para asegurar visibilidad en esquinas) */}
             <button 
                 onClick={(e) => { e.stopPropagation(); setSelectedImg(null); }}
-                className="absolute top-4 right-4 md:top-8 md:right-8 text-white/70 hover:text-white transition-colors z-[10000] p-2 hover:bg-white/10 rounded-full"
+                className="fixed top-4 right-4 md:top-8 md:right-8 text-white z-[100000] p-3 bg-black/50 hover:bg-white/20 rounded-full transition-all border border-white/10"
+                aria-label="Cerrar"
             >
-              <X size={32} md:size={40} />
+              <X className="w-6 h-6 md:w-8 md:h-8" />
             </button>
 
             {/* Navegación Izquierda */}
             <button
               onClick={handlePrev}
-              className="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-all z-[10000] p-2 hover:bg-white/10 rounded-full"
+              className="fixed left-2 md:left-8 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-all z-[100000] p-2 hover:bg-white/10 rounded-full"
             >
-              <ChevronLeft size={40} md:size={56} />
+              <ChevronLeft size={40} className="md:w-14 md:h-14" />
             </button>
 
             {/* Navegación Derecha */}
             <button
               onClick={handleNext}
-              className="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-all z-[10000] p-2 hover:bg-white/10 rounded-full"
+              className="fixed right-2 md:right-8 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-all z-[100000] p-2 hover:bg-white/10 rounded-full"
             >
-              <ChevronRight size={40} md:size={56} />
+              <ChevronRight size={40} className="md:w-14 md:h-14" />
             </button>
 
             {/* Contenedor de Imagen */}
             <motion.div
-              layoutId={`img-${selectedImg.id}`} // Nota: al cambiar de imagen dentro del modal, layoutId puede causar saltos si no coincide, pero Framer suele manejarlo bien o se puede quitar para transiciones más simples.
+              layoutId={`img-${selectedImg.id}`}
               className="relative w-full h-full flex flex-col items-center justify-center pointer-events-none" 
             >
               <div 
                   className="pointer-events-auto flex flex-col items-center max-w-full max-h-full"
-                  onClick={(e) => e.stopPropagation()} // Evita cerrar al dar clic a la imagen
+                  onClick={(e) => e.stopPropagation()} 
               >
                   <img
                     src={selectedImg.src}
@@ -332,8 +337,9 @@ export default function MasonryGallery({ lang = 'es' }) {
               </div>
             </motion.div>
           </motion.div>
-        )}
-      </AnimatePresence>
+        </AnimatePresence>,
+        document.body // <-- Aquí está la magia: se renderiza en el body directo
+      )}
     </>
   );
 }
