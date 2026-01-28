@@ -2,156 +2,247 @@
 import Layout from '../layouts/Layout.astro';
 import { Image } from 'astro:assets';
 
-// Importación de imágenes
+// --- Libros Originales (Mantienen formato JPG según tu repo) ---
 import imgGuerra from '../assets/guerra2.jpg';
 import imgMarco from '../assets/marco.jpg';
 import imgWar from '../assets/war.jpg';
 
+// --- Libros Nuevos (Formato PNG según instrucción) ---
+import img8Bits from '../assets/elhombre.png';
+import imgQuinta from '../assets/quinta.png';
+import imgViaje from '../assets/elviaje.png';
+import imgRetorno from '../assets/elretorno.png';
+import imgNacimiento from '../assets/elnacimiento.png';
+
 const books = [
+  // --- PUBLICADOS ---
   {
     id: 1,
     title: "Guerra de Ángeles",
     subtitle: "Adán, el primer hombre",
     year: "2014",
-    synopsis: "En el principio no hubo paz. Una reinterpretación visceral del mito de la creación, donde la lealtad celestial se quiebra ante la imperfección humana. Una narrativa que fusiona lo teológico con la acción trepidante.",
+    synopsis: "En el principio no hubo paz. Una reinterpretación visceral del mito de la creación, donde la lealtad celestial se quiebra ante la imperfección humana.",
     quote: "La caída no fue un accidente, fue una elección.",
     link: "https://www.amazon.com/Guerra-Angeles-primer-hombre-Spanish-ebook/dp/B00IK6OH4G",
     image: imgGuerra,
-    tags: ["Fantasía Épica", "Mitología", "Acción"]
+    tags: ["Fantasía Épica", "Mitología"],
+    status: "available"
   },
   {
     id: 2,
     title: "Manual del buen estoico",
-    subtitle: "Sabiduría antigua para tiempos modernos",
+    subtitle: "Sabiduría antigua",
     year: "2023",
-    synopsis: "Una guía esencial que rescata el pensamiento de Marco Aurelio y lo adapta a la vorágine del siglo XXI. No es solo filosofía; es un manual de supervivencia mental para encontrar la calma en el caos.",
+    synopsis: "Una guía esencial que rescata el pensamiento de Marco Aurelio y lo adapta a la vorágine del siglo XXI. Un manual de supervivencia mental.",
     quote: "No tienes poder sobre los eventos externos, pero sí sobre tu mente.",
     link: "https://www.amazon.com/Manual-del-buen-estoico-Aurelio/dp/B0FMS9QLCW",
     image: imgMarco,
-    tags: ["Filosofía", "Crecimiento Personal", "Ensayo"]
+    tags: ["Filosofía", "Crecimiento"],
+    status: "available"
   },
   {
     id: 3,
     title: "War of Angels",
     subtitle: "The First Celestial Chronicles",
     year: "2024",
-    synopsis: "La adaptación al inglés de la saga. Ángeles, demonios y los primeros humanos colisionan en una guerra que moldeará el destino del universo. Un relato épico de poder, traición y redención.",
+    synopsis: "La adaptación al inglés de la saga. Ángeles, demonios y los primeros humanos colisionan en una guerra que moldeará el destino del universo.",
     quote: "History is written by the victors, even in Heaven.",
     link: "https://www.amazon.com/War-Angels-First-Celestial-Chronicles-ebook/dp/B0FX3KTSKM",
     image: imgWar,
-    tags: ["Fantasy", "English Edition", "Epic"]
+    tags: ["Fantasy", "English Edition"],
+    status: "available"
+  },
+  {
+    id: 4,
+    title: "El Hombre de 8 Bits",
+    subtitle: "Realidad pixelada",
+    year: "Publicado",
+    synopsis: "Una historia fascinante que explora los límites de nuestra realidad. ¿Vivimos en una simulación o es solo un juego?",
+    quote: "La vida no tiene botón de reset.",
+    link: "https://a.co/d/1qU4xXF",
+    image: img8Bits,
+    tags: ["Ficción", "Tecnología"],
+    status: "available"
+  },
+  // --- EN DESARROLLO ---
+  {
+    id: 5,
+    title: "La Quinta Especie",
+    subtitle: "Evolución inminente",
+    year: "En Desarrollo",
+    synopsis: "Un proyecto ambicioso actualmente en fase de escritura. Explorando nuevos horizontes de la ciencia ficción y la evolución humana.",
+    quote: "Lo que viene después del humano.",
+    image: imgQuinta,
+    tags: ["Ciencia Ficción", "Próximamente"],
+    status: "development"
+  },
+  {
+    id: 6,
+    title: "El Viaje del Titán",
+    subtitle: "La odisea comienza",
+    year: "En Desarrollo",
+    synopsis: "El inicio de una saga épica. Los titanes despiertan y el mundo nunca volverá a ser el mismo.",
+    quote: "Incluso los dioses sangran.",
+    image: imgViaje,
+    tags: ["Fantasía Épica", "Saga Titanes"],
+    status: "development"
+  },
+  {
+    id: 7,
+    title: "El Retorno del Titán",
+    subtitle: "La venganza es eterna",
+    year: "En Desarrollo",
+    synopsis: "La continuación directa de la saga. Conflictos más oscuros y batallas que definirán el destino del universo.",
+    quote: "Lo que se fue, siempre vuelve.",
+    image: imgRetorno,
+    tags: ["Fantasía", "Saga Titanes"],
+    status: "development"
+  },
+  {
+    id: 8,
+    title: "El Nacimiento del Titán",
+    subtitle: "El origen de todo",
+    year: "En Desarrollo",
+    synopsis: "La precuela que explica el origen de los mitos. Descubre cómo nacieron las leyendas.",
+    quote: "Todo final tiene un principio.",
+    image: imgNacimiento,
+    tags: ["Origen", "Saga Titanes"],
+    status: "development"
   }
 ];
 ---
 
 <Layout title="Escritor | FJ Cueva">
   
-  <section class="relative min-h-[60vh] flex flex-col justify-center items-center px-6 pt-32 pb-12 overflow-hidden">
-    <div class="absolute inset-0 opacity-[0.15] pointer-events-none mix-blend-overlay" style="background-image: url('https://grainy-gradients.vercel.app/noise.svg');"></div>
+  <div class="bg-zinc-900 min-h-screen text-zinc-100 selection:bg-accent selection:text-white">
     
-    <div class="relative z-10 text-center space-y-6 max-w-4xl">
-      <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white mb-2">
-        Arquitectura <br/> 
-        <span class="text-stroke text-transparent italic font-light">Narrativa</span>
-      </h1>
+    <section class="relative min-h-[50vh] flex flex-col justify-center items-center px-6 pt-32 pb-12 overflow-hidden">
+      <div class="absolute inset-0 opacity-[0.07] pointer-events-none" style="background-image: url('https://grainy-gradients.vercel.app/noise.svg');"></div>
       
-      <div class="h-px w-24 bg-accent mx-auto my-8"></div>
-      
-      <p class="text-gray-400 text-lg md:text-xl font-light tracking-wide max-w-2xl mx-auto text-pretty">
-        Explorando los abismos de la condición humana a través de la fantasía oscura y la filosofía estoica.
-      </p>
-    </div>
-  </section>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[100px] pointer-events-none"></div>
 
-  <section class="py-20 md:py-32 px-6 relative">
-    <div class="max-w-7xl mx-auto space-y-32 md:space-y-48">
-      
-      {books.map((book, index) => (
-        <article class={`flex flex-col md:flex-row items-center gap-12 md:gap-24 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''} group`}>
-          
-          <div class="w-full md:w-1/2 relative perspective-1000">
-            <div class="relative z-10 transform transition-transform duration-700 group-hover:scale-[1.02] group-hover:-translate-y-2">
-              <div class="absolute inset-0 bg-accent/20 blur-[40px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-              <Image 
-                src={book.image} 
-                alt={book.title} 
-                width={600}
-                class="w-full h-auto object-cover rounded shadow-2xl relative z-10 aspect-[2/3] max-w-sm mx-auto md:max-w-md"
-              />
-              <div class={`absolute top-4 bottom-4 w-full border border-white/20 -z-0 transition-all duration-500 ${index % 2 === 0 ? '-right-4 group-hover:-right-6' : '-left-4 group-hover:-left-6'}`}></div>
-            </div>
-          </div>
+      <div class="relative z-10 text-center space-y-6 max-w-4xl">
+        <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white mb-2">
+          Arquitectura <br/> 
+          <span class="italic font-light text-transparent bg-clip-text bg-gradient-to-r from-zinc-200 via-white to-zinc-400">
+            Narrativa
+          </span>
+        </h1>
+        
+        <div class="h-px w-24 bg-accent/50 mx-auto my-8"></div>
+    
+        <p class="text-zinc-400 text-lg md:text-xl font-light tracking-wide max-w-2xl mx-auto text-pretty">
+          Explorando los abismos de la condición humana a través de la fantasía oscura, la filosofía y la ciencia ficción.
+        </p>
+      </div>
+    </section>
 
-          <div class="w-full md:w-1/2 space-y-8">
-            <div class="space-y-2">
-              <div class="flex items-center gap-4 text-xs font-bold tracking-[0.2em] uppercase text-accent">
-                <span>{book.year}</span>
-                <span class="w-8 h-px bg-white/20"></span>
-                <span class="text-gray-400">{book.tags[0]}</span>
+    <section class="py-20 px-6 relative">
+      <div class="max-w-7xl mx-auto space-y-24 md:space-y-32">
+        
+        {books.map((book, index) => (
+          <article class={`group relative flex flex-col md:flex-row gap-12 items-center ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
+            
+            <div class="w-full md:w-5/12 perspective-1000 relative">
+              <div class="relative z-10 transform transition-all duration-700 group-hover:scale-[1.02] group-hover:-translate-y-2">
+                
+                <div class="absolute inset-0 bg-accent/10 blur-2xl rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                
+                <Image 
+                  src={book.image} 
+                  alt={book.title} 
+                  width={600}
+                  class="w-full max-w-[300px] mx-auto md:max-w-md h-auto object-cover rounded shadow-2xl relative z-10 ring-1 ring-white/10"
+                />
+
+                <div class={`absolute top-4 bottom-4 w-full border border-white/5 -z-0 transition-all duration-500 rounded ${index % 2 === 0 ? '-right-4 group-hover:-right-6' : '-left-4 group-hover:-left-6'}`}></div>
               </div>
+            </div>
+
+            <div class="w-full md:w-7/12 space-y-8 text-center md:text-left">
               
-              <h2 class="text-4xl md:text-5xl font-serif font-bold text-white leading-tight">
-                {book.title}
-              </h2>
-              <h3 class="text-xl font-light text-gray-400 italic">
-                {book.subtitle}
-              </h3>
+              <div class="flex flex-wrap items-center justify-center md:justify-start gap-4 text-xs font-bold tracking-[0.2em] uppercase">
+                <span class="text-zinc-500">{book.year}</span>
+                <span class="w-8 h-px bg-accent/50"></span>
+                <span class="text-accent">{book.tags[0]}</span>
+              </div>
+
+              <div class="space-y-2">
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-white leading-tight">
+                  {book.title}
+                </h2>
+                <h3 class="text-xl text-zinc-400 italic font-light font-serif">
+                  {book.subtitle}
+                </h3>
+              </div>
+
+              <blockquote class="relative py-2 pl-6 border-l-2 border-accent/30 text-lg text-zinc-300 italic font-serif opacity-80 md:ml-0 mx-auto max-w-lg md:max-w-none">
+                "{book.quote}"
+              </blockquote>
+
+              <p class="text-zinc-400 leading-relaxed text-pretty text-base md:text-lg">
+                {book.synopsis}
+              </p>
+
+              <div class="flex flex-wrap justify-center md:justify-start gap-2 pt-2">
+                {book.tags.map(tag => (
+                  <span class="px-3 py-1 bg-zinc-800/50 border border-white/5 rounded-full text-[10px] text-zinc-400 uppercase tracking-wider hover:border-accent/30 hover:text-white transition-colors">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <div class="pt-6">
+                {book.status === 'available' ? (
+                  <a 
+                    href={book.link}
+                    target="_blank"
+                    rel="noopener noreferrer" 
+                    class="inline-flex items-center gap-3 bg-white text-black px-8 py-3 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-accent hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(17,182,235,0.4)]"
+                  >
+                    <span>Adquirir Libro</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                  </a>
+                ) : (
+                  <div class="inline-flex items-center gap-3 px-8 py-3 rounded-full border border-white/10 bg-white/5 text-zinc-500 font-bold uppercase tracking-widest text-xs cursor-not-allowed select-none">
+                    <span class="relative flex h-2 w-2">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-accent/50"></span>
+                    </span>
+                    En Desarrollo
+                  </div>
+                )}
+              </div>
+
             </div>
+          </article>
+        ))}
+      </div>
+    </section>
 
-            <blockquote class="border-l-2 border-accent pl-6 py-1 text-lg md:text-xl text-gray-300 italic font-serif opacity-80">
-              "{book.quote}"
-            </blockquote>
-
-            <p class="text-gray-400 leading-relaxed text-pretty text-base md:text-lg">
-              {book.synopsis}
-            </p>
-
-            <div class="pt-4 flex flex-wrap gap-3">
-              {book.tags.map(tag => (
-                <span class="px-3 py-1 border border-white/10 rounded-full text-xs text-gray-500 uppercase tracking-wider">
-                  {tag}
-                </span>
-              ))}
-            </div>
-
-            <div class="pt-6">
-              <a 
-                href={book.link}
-                target="_blank"
-                rel="noopener noreferrer" 
-                class="inline-flex items-center gap-3 bg-white text-black px-8 py-3 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-accent hover:text-white transition-all duration-300 shadow-lg group-hover:shadow-accent/20"
-              >
-                Adquirir Libro
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-              </a>
-            </div>
-          </div>
-
-        </article>
-      ))}
-
-    </div>
-  </section>
-
-  <div class="h-24"></div>
+    <div class="h-24"></div>
+  </div>
 
   <style>
-    .text-stroke {
-      -webkit-text-stroke: 1px white;
-      color: transparent;
-    }
-    
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    /* Animación de entrada estilo Hero */
     article {
+      animation: fadeInUp 0.8s ease-out forwards;
+      opacity: 0;
       view-timeline-name: --article;
       view-timeline-axis: block;
       animation-timeline: --article;
-      animation-name: fadeInUp;
-      animation-range: entry 10% cover 30%;
-      animation-fill-mode: both;
+      animation-range: entry 10% cover 20%;
+    }
+
+    @keyframes fadeInUp {
+      from { 
+        opacity: 0; 
+        transform: translateY(40px); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateY(0); 
+      }
     }
   </style>
 

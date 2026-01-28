@@ -2,156 +2,247 @@
 import Layout from '../../layouts/Layout.astro';
 import { Image } from 'astro:assets';
 
-// Import images (Path adjusted for /en/ folder)
+// --- Original Books (JPG) ---
 import imgGuerra from '../../assets/guerra2.jpg';
 import imgMarco from '../../assets/marco.jpg';
 import imgWar from '../../assets/war.jpg';
 
+// --- New Books (PNG) ---
+import img8Bits from '../../assets/elhombre.png';
+import imgQuinta from '../../assets/quinta.png';
+import imgViaje from '../../assets/elviaje.png';
+import imgRetorno from '../../assets/elretorno.png';
+import imgNacimiento from '../../assets/elnacimiento.png';
+
 const books = [
+  // --- PUBLISHED ---
   {
     id: 1,
     title: "Guerra de Ángeles",
     subtitle: "Adam, the first man",
     year: "2014",
-    synopsis: "In the beginning, there was no peace. A visceral reinterpretation of the creation myth, where celestial loyalty shatters before human imperfection. A narrative fusing theology with heart-pounding action.",
-    quote: "The fall was not an accident; it was a choice.",
+    synopsis: "In the beginning, there was no peace. A visceral reinterpretation of the creation myth, where celestial loyalty cracks before human imperfection.",
+    quote: "The fall was not an accident, it was a choice.",
     link: "https://www.amazon.com/Guerra-Angeles-primer-hombre-Spanish-ebook/dp/B00IK6OH4G",
     image: imgGuerra,
-    tags: ["Epic Fantasy", "Mythology", "Action"]
+    tags: ["Epic Fantasy", "Mythology"],
+    status: "available"
   },
   {
     id: 2,
     title: "Manual del buen estoico",
-    subtitle: "Ancient wisdom for modern times",
+    subtitle: "Ancient wisdom",
     year: "2023",
-    synopsis: "An essential guide that rescues the thoughts of Marcus Aurelius and adapts them to the whirlwind of the 21st century. It is not just philosophy; it is a mental survival manual for finding calm within chaos.",
+    synopsis: "An essential guide rescuing Marcus Aurelius' thought and adapting it to the whirlwind of the 21st century. A mental survival manual.",
     quote: "You have power over your mind - not outside events.",
     link: "https://www.amazon.com/Manual-del-buen-estoico-Aurelio/dp/B0FMS9QLCW",
     image: imgMarco,
-    tags: ["Philosophy", "Self-Growth", "Essay"]
+    tags: ["Philosophy", "Self-Growth"],
+    status: "available"
   },
   {
     id: 3,
     title: "War of Angels",
     subtitle: "The First Celestial Chronicles",
     year: "2024",
-    synopsis: "Angels, demons, and the first humans collide in a war that will shape the destiny of the universe. An epic tale of power, betrayal, and redemption.",
+    synopsis: "The English adaptation of the saga. Angels, demons, and the first humans collide in a war that will shape the destiny of the universe.",
     quote: "History is written by the victors, even in Heaven.",
     link: "https://www.amazon.com/War-Angels-First-Celestial-Chronicles-ebook/dp/B0FX3KTSKM",
     image: imgWar,
-    tags: ["Fantasy", "English Edition", "Epic"]
+    tags: ["Fantasy", "English Edition"],
+    status: "available"
+  },
+  {
+    id: 4,
+    title: "El Hombre de 8 Bits",
+    subtitle: "Pixelated Reality",
+    year: "Published",
+    synopsis: "A fascinating story exploring the limits of our reality. Are we living in a simulation or is it just a game?",
+    quote: "Life has no reset button.",
+    link: "https://a.co/d/1qU4xXF",
+    image: img8Bits,
+    tags: ["Fiction", "Technology"],
+    status: "available"
+  },
+  // --- IN DEVELOPMENT ---
+  {
+    id: 5,
+    title: "The Fifth Species",
+    subtitle: "Imminent Evolution",
+    year: "In Development",
+    synopsis: "An ambitious project currently in writing phase. Exploring new horizons of science fiction and human evolution.",
+    quote: "What comes after the human.",
+    image: imgQuinta,
+    tags: ["Sci-Fi", "Coming Soon"],
+    status: "development"
+  },
+  {
+    id: 6,
+    title: "The Titan's Journey",
+    subtitle: "The Odyssey Begins",
+    year: "In Development",
+    synopsis: "The beginning of an epic saga. The titans awaken, and the world will never be the same again.",
+    quote: "Even gods bleed.",
+    image: imgViaje,
+    tags: ["Epic Fantasy", "Titan Saga"],
+    status: "development"
+  },
+  {
+    id: 7,
+    title: "The Titan's Return",
+    subtitle: "Vengeance is Eternal",
+    year: "In Development",
+    synopsis: "The direct sequel to the saga. Darker conflicts and battles that will define the fate of the universe.",
+    quote: "What is gone always returns.",
+    image: imgRetorno,
+    tags: ["Fantasy", "Titan Saga"],
+    status: "development"
+  },
+  {
+    id: 8,
+    title: "The Titan's Birth",
+    subtitle: "The Origin of All",
+    year: "In Development",
+    synopsis: "The prequel explaining the myths. Discover how the legends were born.",
+    quote: "Every end has a beginning.",
+    image: imgNacimiento,
+    tags: ["Origin", "Titan Saga"],
+    status: "development"
   }
 ];
 ---
 
 <Layout title="Writer | FJ Cueva">
   
-  <section class="relative min-h-[60vh] flex flex-col justify-center items-center px-6 pt-32 pb-12 overflow-hidden">
-    <div class="absolute inset-0 opacity-[0.15] pointer-events-none mix-blend-overlay" style="background-image: url('https://grainy-gradients.vercel.app/noise.svg');"></div>
+  <div class="bg-zinc-900 min-h-screen text-zinc-100 selection:bg-accent selection:text-white">
     
-    <div class="relative z-10 text-center space-y-6 max-w-4xl">
-      <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white mb-2">
-        Narrative <br/> 
-        <span class="text-stroke text-transparent italic font-light">Architecture</span>
-      </h1>
+    <section class="relative min-h-[50vh] flex flex-col justify-center items-center px-6 pt-32 pb-12 overflow-hidden">
+      <div class="absolute inset-0 opacity-[0.07] pointer-events-none" style="background-image: url('https://grainy-gradients.vercel.app/noise.svg');"></div>
       
-      <div class="h-px w-24 bg-accent mx-auto my-8"></div>
-      
-      <p class="text-gray-400 text-lg md:text-xl font-light tracking-wide max-w-2xl mx-auto text-pretty">
-        Exploring the depths of the human condition through dark fantasy and stoic philosophy.
-      </p>
-    </div>
-  </section>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[100px] pointer-events-none"></div>
 
-  <section class="py-20 md:py-32 px-6 relative">
-    <div class="max-w-7xl mx-auto space-y-32 md:space-y-48">
-      
-      {books.map((book, index) => (
-        <article class={`flex flex-col md:flex-row items-center gap-12 md:gap-24 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''} group`}>
-          
-          <div class="w-full md:w-1/2 relative perspective-1000">
-            <div class="relative z-10 transform transition-transform duration-700 group-hover:scale-[1.02] group-hover:-translate-y-2">
-              <div class="absolute inset-0 bg-accent/20 blur-[40px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-              <Image 
-                src={book.image} 
-                alt={book.title} 
-                width={600}
-                class="w-full h-auto object-cover rounded shadow-2xl relative z-10 aspect-[2/3] max-w-sm mx-auto md:max-w-md"
-              />
-              <div class={`absolute top-4 bottom-4 w-full border border-white/20 -z-0 transition-all duration-500 ${index % 2 === 0 ? '-right-4 group-hover:-right-6' : '-left-4 group-hover:-left-6'}`}></div>
-            </div>
-          </div>
+      <div class="relative z-10 text-center space-y-6 max-w-4xl">
+        <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white mb-2">
+          Narrative <br/> 
+          <span class="italic font-light text-transparent bg-clip-text bg-gradient-to-r from-zinc-200 via-white to-zinc-400">
+            Architecture
+          </span>
+        </h1>
+        
+        <div class="h-px w-24 bg-accent/50 mx-auto my-8"></div>
+    
+        <p class="text-zinc-400 text-lg md:text-xl font-light tracking-wide max-w-2xl mx-auto text-pretty">
+          Exploring the abysses of the human condition through dark fantasy, philosophy, and science fiction.
+        </p>
+      </div>
+    </section>
 
-          <div class="w-full md:w-1/2 space-y-8">
-            <div class="space-y-2">
-              <div class="flex items-center gap-4 text-xs font-bold tracking-[0.2em] uppercase text-accent">
-                <span>{book.year}</span>
-                <span class="w-8 h-px bg-white/20"></span>
-                <span class="text-gray-400">{book.tags[0]}</span>
+    <section class="py-20 px-6 relative">
+      <div class="max-w-7xl mx-auto space-y-24 md:space-y-32">
+        
+        {books.map((book, index) => (
+          <article class={`group relative flex flex-col md:flex-row gap-12 items-center ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
+            
+            <div class="w-full md:w-5/12 perspective-1000 relative">
+              <div class="relative z-10 transform transition-all duration-700 group-hover:scale-[1.02] group-hover:-translate-y-2">
+                
+                <div class="absolute inset-0 bg-accent/10 blur-2xl rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                
+                <Image 
+                  src={book.image} 
+                  alt={book.title} 
+                  width={600}
+                  class="w-full max-w-[300px] mx-auto md:max-w-md h-auto object-cover rounded shadow-2xl relative z-10 ring-1 ring-white/10"
+                />
+
+                <div class={`absolute top-4 bottom-4 w-full border border-white/5 -z-0 transition-all duration-500 rounded ${index % 2 === 0 ? '-right-4 group-hover:-right-6' : '-left-4 group-hover:-left-6'}`}></div>
               </div>
+            </div>
+
+            <div class="w-full md:w-7/12 space-y-8 text-center md:text-left">
               
-              <h2 class="text-4xl md:text-5xl font-serif font-bold text-white leading-tight">
-                {book.title}
-              </h2>
-              <h3 class="text-xl font-light text-gray-400 italic">
-                {book.subtitle}
-              </h3>
+              <div class="flex flex-wrap items-center justify-center md:justify-start gap-4 text-xs font-bold tracking-[0.2em] uppercase">
+                <span class="text-zinc-500">{book.year}</span>
+                <span class="w-8 h-px bg-accent/50"></span>
+                <span class="text-accent">{book.tags[0]}</span>
+              </div>
+
+              <div class="space-y-2">
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-white leading-tight">
+                  {book.title}
+                </h2>
+                <h3 class="text-xl text-zinc-400 italic font-light font-serif">
+                  {book.subtitle}
+                </h3>
+              </div>
+
+              <blockquote class="relative py-2 pl-6 border-l-2 border-accent/30 text-lg text-zinc-300 italic font-serif opacity-80 md:ml-0 mx-auto max-w-lg md:max-w-none">
+                "{book.quote}"
+              </blockquote>
+
+              <p class="text-zinc-400 leading-relaxed text-pretty text-base md:text-lg">
+                {book.synopsis}
+              </p>
+
+              <div class="flex flex-wrap justify-center md:justify-start gap-2 pt-2">
+                {book.tags.map(tag => (
+                  <span class="px-3 py-1 bg-zinc-800/50 border border-white/5 rounded-full text-[10px] text-zinc-400 uppercase tracking-wider hover:border-accent/30 hover:text-white transition-colors">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <div class="pt-6">
+                {book.status === 'available' ? (
+                  <a 
+                    href={book.link}
+                    target="_blank"
+                    rel="noopener noreferrer" 
+                    class="inline-flex items-center gap-3 bg-white text-black px-8 py-3 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-accent hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(17,182,235,0.4)]"
+                  >
+                    <span>Buy Book</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                  </a>
+                ) : (
+                  <div class="inline-flex items-center gap-3 px-8 py-3 rounded-full border border-white/10 bg-white/5 text-zinc-500 font-bold uppercase tracking-widest text-xs cursor-not-allowed select-none">
+                    <span class="relative flex h-2 w-2">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-accent/50"></span>
+                    </span>
+                    In Development
+                  </div>
+                )}
+              </div>
+
             </div>
+          </article>
+        ))}
+      </div>
+    </section>
 
-            <blockquote class="border-l-2 border-accent pl-6 py-1 text-lg md:text-xl text-gray-300 italic font-serif opacity-80">
-              "{book.quote}"
-            </blockquote>
-
-            <p class="text-gray-400 leading-relaxed text-pretty text-base md:text-lg">
-              {book.synopsis}
-            </p>
-
-            <div class="pt-4 flex flex-wrap gap-3">
-              {book.tags.map(tag => (
-                <span class="px-3 py-1 border border-white/10 rounded-full text-xs text-gray-500 uppercase tracking-wider">
-                  {tag}
-                </span>
-              ))}
-            </div>
-
-            <div class="pt-6">
-              <a 
-                href={book.link}
-                target="_blank"
-                rel="noopener noreferrer" 
-                class="inline-flex items-center gap-3 bg-white text-black px-8 py-3 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-accent hover:text-white transition-all duration-300 shadow-lg group-hover:shadow-accent/20"
-              >
-                Buy Book
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-              </a>
-            </div>
-          </div>
-
-        </article>
-      ))}
-
-    </div>
-  </section>
-
-  <div class="h-24"></div>
+    <div class="h-24"></div>
+  </div>
 
   <style>
-    .text-stroke {
-      -webkit-text-stroke: 1px white;
-      color: transparent;
-    }
-    
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    /* Hero Entry Animation */
     article {
+      animation: fadeInUp 0.8s ease-out forwards;
+      opacity: 0;
       view-timeline-name: --article;
       view-timeline-axis: block;
       animation-timeline: --article;
-      animation-name: fadeInUp;
-      animation-range: entry 10% cover 30%;
-      animation-fill-mode: both;
+      animation-range: entry 10% cover 20%;
+    }
+
+    @keyframes fadeInUp {
+      from { 
+        opacity: 0; 
+        transform: translateY(40px); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateY(0); 
+      }
     }
   </style>
 
